@@ -1531,6 +1531,20 @@ applyUI = function(){ _applyUI2(); renderSeason(); renderQuiz(); };
 renderSeason();
 renderQuiz();
 quizFromHash();
+
+/* Telafi: blok 2'nin ilk route() cagrisi BU blok yuklenmeden calisir, bu yuzden
+   sayfa dogrudan #/place/<id> ile acildiginda detay ORIJINAL renderDetail ile
+   cizilir ve hava kutusu hic olusmaz. Paylasilan her detay linki bu duruma
+   duser. Acik bir detay varsa hava kutusunu burada bir kez enjekte et.
+   (Sonradan gezinmede blok 3 zaten parse aninda calismis ve detay kapali
+   oldugu icin bu kosul tutmaz -- cift kutu olusmaz.) */
+(function () {
+  var m = location.hash.match(/^#\/place\/([a-z]+)$/);
+  var d = document.getElementById('detail');
+  if (m && d && d.classList.contains('open') && !d.querySelector('.wx')) {
+    injectWeather(m[1]);
+  }
+})();
 </script>
 </body>
 </html>
