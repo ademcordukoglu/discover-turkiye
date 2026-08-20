@@ -170,6 +170,77 @@ html[lang="ar"] .d-sec-title{font-family:'Amiri',serif}
 <meta property="og:description" content="A visual guide to 20 destinations across Türkiye's seven regions — in English, Deutsch, Русский and العربية.">
 <meta property="og:image" content="assets/hero.jpg">
 <meta name="twitter:card" content="summary_large_image">
+<style>
+/* ---------- Season recommender ---------- */
+.season-box{background:#fff;border:1px solid var(--line);border-radius:26px;padding:clamp(26px,4vw,44px);margin:10px 0 30px;box-shadow:var(--shadow)}
+.months{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 6px}
+.months button{border:1.5px solid var(--line);background:var(--sand);color:var(--ink-soft);font:600 13px 'Inter',sans-serif;padding:9px 16px;border-radius:999px;cursor:pointer;transition:all .2s}
+html[lang="ar"] .months button{font-family:'IBM Plex Sans Arabic',sans-serif}
+.months button:hover{border-color:var(--teal);color:var(--teal)}
+.months button.active{background:var(--teal);border-color:var(--teal);color:#fff}
+.season-out{margin-top:18px}
+.season-out .s-lead{font-size:15px;color:var(--ink-soft);margin-bottom:14px}
+.s-pills{display:flex;gap:10px;flex-wrap:wrap}
+.s-pills a{display:inline-flex;align-items:center;gap:8px;background:var(--sand);border:1.5px solid var(--line);border-radius:999px;padding:9px 18px;text-decoration:none;color:var(--ink);font-weight:600;font-size:14px;transition:all .2s}
+.s-pills a:hover{border-color:var(--terra);color:var(--terra);transform:translateY(-2px)}
+.s-pills a span{font-weight:500;font-size:12px;color:var(--ink-soft)}
+
+/* ---------- Quiz ---------- */
+.quiz-box{background:linear-gradient(135deg,#123a49,#0e7490);border-radius:26px;padding:clamp(28px,4.5vw,52px);margin:10px 0 60px;color:#eaf4f6;box-shadow:var(--shadow-lg)}
+.quiz-box .eyebrow{color:#fcd9a8}
+.quiz-box h2{color:#fff;font-size:clamp(26px,3.4vw,36px);margin:10px 0 8px}
+.quiz-box>p{color:#c8dde2;max-width:70ch}
+.q-start{margin-top:22px;background:#fff;color:var(--teal-dark);border:0;font:600 15px 'Inter',sans-serif;padding:14px 30px;border-radius:999px;cursor:pointer;transition:transform .2s}
+html[lang="ar"] .q-start{font-family:'IBM Plex Sans Arabic',sans-serif}
+.q-start:hover{transform:translateY(-2px)}
+.q-step{margin-top:26px}
+.q-prog{display:flex;gap:6px;margin-bottom:20px}
+.q-prog i{height:5px;flex:1;border-radius:99px;background:rgba(255,255,255,.2)}
+.q-prog i.on{background:#fcd9a8}
+.q-step h3{font-family:'Inter',sans-serif;font-size:clamp(18px,2.4vw,23px);font-weight:700;color:#fff;margin-bottom:18px}
+html[lang="ar"] .q-step h3{font-family:'IBM Plex Sans Arabic',sans-serif}
+.q-opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.q-opts button{text-align:start;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.22);border-radius:14px;color:#eaf4f6;font:500 14.5px 'Inter',sans-serif;padding:16px 18px;cursor:pointer;transition:all .2s}
+html[lang="ar"] .q-opts button{font-family:'IBM Plex Sans Arabic',sans-serif}
+.q-opts button:hover{background:rgba(255,255,255,.18);border-color:#fcd9a8}
+.q-result h3{font-family:'Playfair Display',serif;font-size:clamp(26px,3.4vw,36px);color:#fcd9a8;margin:8px 0 10px}
+html[lang="ar"] .q-result h3{font-family:'Amiri',serif}
+.q-result p{color:#eaf4f6;max-width:70ch;margin-bottom:18px}
+.q-links{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.q-links a{background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.3);color:#fff;border-radius:999px;padding:9px 18px;text-decoration:none;font-weight:600;font-size:14px;transition:all .2s}
+.q-links a:hover{background:#fff;color:var(--teal-dark)}
+.q-again{display:flex;gap:12px;flex-wrap:wrap}
+.q-again button{background:transparent;border:1.5px solid rgba(255,255,255,.4);color:#fff;font:600 13.5px 'Inter',sans-serif;padding:10px 20px;border-radius:999px;cursor:pointer;transition:background .2s}
+html[lang="ar"] .q-again button{font-family:'IBM Plex Sans Arabic',sans-serif}
+.q-again button:hover{background:rgba(255,255,255,.15)}
+
+/* ---------- Weather ---------- */
+.wx{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:-14px 0 32px}
+.wx-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.wx-head b{font-size:14px;color:var(--ink)}
+.wx-now{display:flex;align-items:center;gap:10px;font-size:15px;color:var(--ink-soft)}
+.wx-now .wx-t{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--ink)}
+.wx-days{display:grid;grid-template-columns:repeat(auto-fit,minmax(86px,1fr));gap:8px;margin-top:14px}
+.wx-day{background:var(--sand);border-radius:10px;padding:10px 8px;text-align:center;font-size:12.5px;color:var(--ink-soft)}
+.wx-day b{display:block;color:var(--ink);font-size:12.5px;margin-bottom:4px;text-transform:capitalize}
+.wx-day .wx-mm{margin-top:4px}
+.wx svg{width:22px;height:22px;stroke:var(--teal);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle}
+.wx-day svg{width:20px;height:20px}
+.wx-note{font-size:11.5px;color:#9aa8b5;margin-top:10px}
+
+/* ---------- Lightbox ---------- */
+#lb{position:fixed;inset:0;z-index:90;background:rgba(8,17,26,.94);display:none;align-items:center;justify-content:center;flex-direction:column;padding:24px}
+#lb.open{display:flex}
+#lb img{max-width:min(94vw,1400px);max-height:78vh;object-fit:contain;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+#lb figcaption{color:#d7e3ea;font-size:14px;margin-top:14px;text-align:center;max-width:80ch}
+.lb-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);color:#fff;width:46px;height:46px;border-radius:50%;font-size:20px;cursor:pointer;transition:background .2s;display:flex;align-items:center;justify-content:center}
+.lb-btn:hover{background:rgba(255,255,255,.28)}
+#lb-prev{inset-inline-start:18px}
+#lb-next{inset-inline-end:18px}
+#lb-close{position:absolute;top:18px;inset-inline-end:18px;transform:none}
+#lb .lb-count{position:absolute;top:26px;inset-inline-start:24px;color:#b9c8d2;font-size:13px}
+@media(max-width:640px){.lb-btn{width:40px;height:40px}}
+</style>
 </head>
 <body>
 <header class="hero">
@@ -210,6 +281,20 @@ html[lang="ar"] .d-sec-title{font-family:'Amiri',serif}
     </div>
     <div class="filters" id="filters"></div>
     <div class="grid" id="grid"></div>
+  </section>
+
+  <section id="season" class="wrap">
+    <div class="season-box">
+      <div class="eyebrow" data-i18n="seasonEyebrow">Plan by month</div>
+      <h2 data-i18n="seasonTitle">When are you going?</h2>
+      <p data-i18n="seasonIntro" style="color:var(--ink-soft);max-width:70ch">Pick a month and we'll show the destinations at their very best right then.</p>
+      <div class="months" id="months"></div>
+      <div class="season-out" id="seasonOut"></div>
+    </div>
+  </section>
+
+  <section id="quiz" class="wrap">
+    <div class="quiz-box" id="quizBox"></div>
   </section>
 
   <section id="tips" class="wrap">
@@ -1129,6 +1214,323 @@ applyUI = function(){ _applyUI(); if(openId) renderDetail(openId); };
 
 applyUI();
 route();
+</script>
+
+<script>
+/* ================= FEATURES: season · quiz · weather · lightbox ================= */
+
+/* ---- i18n additions ---- */
+Object.assign(UI, {
+ seasonEyebrow:{en:'Plan by month',de:'Nach Monat planen',ru:'Планируйте по месяцам',ar:'خطط حسب الشهر'},
+ seasonTitle:{en:'When are you going?',de:'Wann reisen Sie?',ru:'Когда вы едете?',ar:'متى سترحل؟'},
+ seasonIntro:{en:'Pick a month and we’ll show the destinations at their very best right then.',
+              de:'Wählen Sie einen Monat — wir zeigen die Ziele, die genau dann am schönsten sind.',
+              ru:'Выберите месяц — и мы покажем места, которые именно тогда в лучшей форме.',
+              ar:'اختر شهرًا وسنعرض لك الوجهات في أبهى حالاتها في ذلك الوقت تحديدًا.'},
+ seasonLead:{en:'At their best in {m}:',de:'Am schönsten im {m}:',ru:'Лучше всего в {m}:',ar:'في أفضل حالاتها في {m}:'},
+ wxTitle:{en:'Weather now',de:'Wetter aktuell',ru:'Погода сейчас',ar:'الطقس الآن'},
+ wxNote:{en:'Live forecast · Open-Meteo',de:'Live-Vorhersage · Open-Meteo',ru:'Прогноз в реальном времени · Open-Meteo',ar:'توقعات مباشرة · Open-Meteo'}
+});
+
+const LOCALES = {en:'en-GB', de:'de-DE', ru:'ru-RU', ar:'ar'};
+
+/* ---- Season data (ideal months, 1–12) ---- */
+const SEASON = {
+ hagia:[1,2,3,4,5,6,9,10,11,12], blue:[1,2,3,4,5,6,9,10,11,12], galata:[1,2,3,4,5,6,9,10,11,12],
+ troy:[4,5,6,9,10], ephesus:[3,4,5,6,9,10,11], pamukkale:[3,4,5,6,9,10,11],
+ bodrum:[5,6,7,8,9,10], oludeniz:[5,6,7,8,9,10], antalya:[4,5,6,9,10,11], side:[4,5,6,9,10,11],
+ cappadocia:[1,2,3,4,5,6,9,10,11,12], konya:[3,4,5,6,9,10,11,12],
+ sumela:[5,6,7,8,9,10], safranbolu:[1,4,5,6,7,8,9,10,12], uzungol:[5,6,7,8,9,10],
+ ani:[5,6,7,8,9], van:[4,5,6,7,8,9], gobekli:[3,4,5,10,11], nemrut:[5,6,7,8,9,10], mardin:[3,4,5,9,10,11]
+};
+
+let seasonMonth = new Date().getMonth() + 1;
+
+function monthName(m, style){ return new Intl.DateTimeFormat(LOCALES[lang], {month: style||'long'}).format(new Date(2024, m-1, 1)); }
+
+function renderSeason(){
+  const box = document.getElementById('months');
+  box.innerHTML = Array.from({length:12}, (_,i) => {
+    const m = i+1;
+    return `<button type="button" data-m="${m}" class="${m===seasonMonth?'active':''}">${esc(monthName(m,'short'))}</button>`;
+  }).join('');
+  box.querySelectorAll('button').forEach(b => b.onclick = () => { seasonMonth = +b.dataset.m; renderSeason(); });
+  const hits = REGION_ORDER.flatMap(k => D.filter(d => d.region===k)).filter(d => (SEASON[d.id]||[]).includes(seasonMonth));
+  document.getElementById('seasonOut').innerHTML = `
+    <div class="s-lead">${esc(UI.seasonLead[lang].replace('{m}', monthName(seasonMonth)))}</div>
+    <div class="s-pills">${hits.map(d => `<a href="#/place/${d.id}">${esc(d.name[lang])} <span>· ${esc(REGIONS[d.region].name[lang])}</span></a>`).join('')}</div>`;
+}
+
+/* ---- Quiz ---- */
+const QZ = {
+ eyebrow:{en:'A little fun',de:'Ein kleines Spiel',ru:'Немного веселья',ar:'القليل من المرح'},
+ title:{en:'Which Türkiye route is yours?',de:'Welche Türkiye-Route passt zu Ihnen?',ru:'Какой маршрут по Турции ваш?',ar:'أي مسار في تركيا يناسبك؟'},
+ intro:{en:'Five quick questions, no wrong answers — we’ll match you with a route and the places to prove it.',
+        de:'Fünf schnelle Fragen, keine falschen Antworten — wir finden Ihre Route und die passenden Orte dazu.',
+        ru:'Пять быстрых вопросов, неправильных ответов нет — подберём вам маршрут и места в доказательство.',
+        ar:'خمسة أسئلة سريعة ولا إجابات خاطئة — سنطابقك مع مسار وأماكن تثبت ذلك.'},
+ start:{en:'Start the quiz',de:'Quiz starten',ru:'Начать тест',ar:'ابدأ الاختبار'},
+ retake:{en:'Take it again',de:'Noch einmal',ru:'Пройти ещё раз',ar:'أعد الاختبار'},
+ share:{en:'Copy result link',de:'Ergebnislink kopieren',ru:'Скопировать ссылку на результат',ar:'انسخ رابط النتيجة'},
+ shared:{en:'Copied!',de:'Kopiert!',ru:'Скопировано!',ar:'تم النسخ!'},
+ kicker:{en:'Your route:',de:'Ihre Route:',ru:'Ваш маршрут:',ar:'مسارك:'},
+ questions:[
+  {q:{en:'Your perfect day looks like…',de:'Ihr perfekter Tag sieht so aus…',ru:'Ваш идеальный день — это…',ar:'يومك المثالي يبدو هكذا…'},
+   o:[{p:'sea', t:{en:'A quiet cove and a swim before lunch',de:'Eine stille Bucht und Schwimmen vor dem Mittag',ru:'Тихая бухта и купание до обеда',ar:'خليج هادئ وسباحة قبل الغداء'}},
+      {p:'history', t:{en:'Walking a 2,000-year-old marble street',de:'Über eine 2.000 Jahre alte Marmorstraße gehen',ru:'Прогулка по мраморной улице возрастом 2000 лет',ar:'المشي في شارع رخامي عمره ألفا عام'}},
+      {p:'nature', t:{en:'A misty lake and cold forest air',de:'Ein nebliger See und kühle Waldluft',ru:'Туманное озеро и прохладный лесной воздух',ar:'بحيرة ضبابية وهواء غابة بارد'}},
+      {p:'culture', t:{en:'Bazaars, spices and old stone alleys',de:'Basare, Gewürze und alte Steingassen',ru:'Базары, специи и старые каменные переулки',ar:'أسواق وبهارات وأزقة حجرية قديمة'}},
+      {p:'city', t:{en:'Rooftops, museums and a night ferry',de:'Dachterrassen, Museen und eine Nachtfähre',ru:'Крыши, музеи и ночной паром',ar:'أسطح ومتاحف وعبّارة ليلية'}}]},
+  {q:{en:'The photo you’d post first:',de:'Das Foto, das Sie zuerst posten würden:',ru:'Фото, которое вы выложите первым:',ar:'الصورة التي ستنشرها أولًا:'},
+   o:[{p:'sea', t:{en:'Turquoise water from the bow of a boat',de:'Türkisblaues Wasser vom Bug eines Boots',ru:'Бирюзовая вода с носа лодки',ar:'ماء فيروزي من مقدمة قارب'}},
+      {p:'history', t:{en:'An ancient theatre at golden hour',de:'Ein antikes Theater zur goldenen Stunde',ru:'Античный театр в золотой час',ar:'مسرح قديم في الساعة الذهبية'}},
+      {p:'nature', t:{en:'Clouds drifting below a mountain pasture',de:'Wolken unterhalb einer Bergalm',ru:'Облака ниже горного пастбища',ar:'غيوم تنساب تحت مرعى جبلي'}},
+      {p:'culture', t:{en:'A doorway carved a thousand years ago',de:'Ein vor tausend Jahren gemeißeltes Portal',ru:'Портал, высеченный тысячу лет назад',ar:'مدخل نُقش قبل ألف عام'}},
+      {p:'city', t:{en:'A skyline of domes and seagulls',de:'Eine Silhouette aus Kuppeln und Möwen',ru:'Горизонт из куполов и чаек',ar:'أفق من القباب والنوارس'}}]},
+  {q:{en:'Dinner tonight:',de:'Abendessen heute:',ru:'Ужин сегодня:',ar:'عشاء الليلة:'},
+   o:[{p:'sea', t:{en:'Fish and meze right by the water',de:'Fisch und Meze direkt am Wasser',ru:'Рыба и мезе у самой воды',ar:'سمك ومزّة على حافة الماء'}},
+      {p:'history', t:{en:'A long village breakfast… at dinnertime',de:'Ein langes Dorffrühstück — zur Abendzeit',ru:'Долгий деревенский завтрак… на ужин',ar:'فطور قروي طويل… في موعد العشاء'}},
+      {p:'nature', t:{en:'Fresh trout and bubbling muhlama',de:'Frische Forelle und brodelnde Muhlama',ru:'Свежая форель и кипящая мухлама',ar:'سلمون مرقط طازج وموهلاما تغلي'}},
+      {p:'culture', t:{en:'Kebab, künefe and bitter coffee',de:'Kebab, Künefe und bitterer Kaffee',ru:'Кебаб, кюнефе и горький кофе',ar:'كباب وكنافة وقهوة مُرّة'}},
+      {p:'city', t:{en:'Street food — a bit of everything',de:'Streetfood — von allem etwas',ru:'Стритфуд — всего понемногу',ar:'أكل شوارع — قليل من كل شيء'}}]},
+  {q:{en:'Your travel pace:',de:'Ihr Reisetempo:',ru:'Ваш темп путешествия:',ar:'إيقاع سفرك:'},
+   o:[{p:'sea', t:{en:'Slow — the sunbed is the plan',de:'Langsam — die Sonnenliege ist der Plan',ru:'Медленный — лежак и есть план',ar:'بطيء — كرسي الشمس هو الخطة'}},
+      {p:'history', t:{en:'Early starts, guide in hand',de:'Früh los, Reiseführer in der Hand',ru:'Ранние подъёмы, путеводитель в руке',ar:'انطلاق مبكر ودليل في اليد'}},
+      {p:'nature', t:{en:'Walking all day, phone off',de:'Den ganzen Tag wandern, Handy aus',ru:'Весь день пешком, телефон выключен',ar:'مشي طوال اليوم والهاتف مغلق'}},
+      {p:'culture', t:{en:'Unhurried — tea and long conversations',de:'Gemächlich — Tee und lange Gespräche',ru:'Неторопливый — чай и долгие разговоры',ar:'من غير عجلة — شاي وأحاديث طويلة'}},
+      {p:'city', t:{en:'Fast — the night is still young',de:'Schnell — die Nacht ist noch jung',ru:'Быстрый — ночь только начинается',ar:'سريع — الليل ما زال في أوله'}}]},
+  {q:{en:'Pick a season:',de:'Wählen Sie eine Jahreszeit:',ru:'Выберите сезон:',ar:'اختر فصلًا:'},
+   o:[{p:'sea', t:{en:'High summer, salt on my skin',de:'Hochsommer, Salz auf der Haut',ru:'Разгар лета, соль на коже',ar:'عز الصيف وملح البحر على الجلد'}},
+      {p:'history', t:{en:'Spring, poppies in the ruins',de:'Frühling, Mohn zwischen den Ruinen',ru:'Весна, маки среди руин',ar:'الربيع وشقائق النعمان بين الأطلال'}},
+      {p:'nature', t:{en:'A green, rainy June',de:'Ein grüner, regnerischer Juni',ru:'Зелёный дождливый июнь',ar:'يونيو أخضر ماطر'}},
+      {p:'culture', t:{en:'Golden autumn light',de:'Goldenes Herbstlicht',ru:'Золотой осенний свет',ar:'ضوء الخريف الذهبي'}},
+      {p:'city', t:{en:'Crisp winter, lights on the water',de:'Klarer Winter, Lichter auf dem Wasser',ru:'Морозная зима, огни на воде',ar:'شتاء صافٍ وأضواء على الماء'}}]}
+ ],
+ personas:{
+  sea:{ids:['oludeniz','bodrum','side','antalya'],
+   t:{en:'The Turquoise Dreamer',de:'Der Türkis-Träumer',ru:'Бирюзовый мечтатель',ar:'حالم الفيروز'},
+   d:{en:'Your Türkiye is 300 days of sunshine: pine-fringed coves, boat days that end in meze, and paragliders drifting over a lagoon. Point yourself at the Turquoise Coast and slow down.',
+      de:'Ihre Türkei hat 300 Sonnentage: Pinienbuchten, Bootstage, die mit Meze enden, und Gleitschirme über einer Lagune. Kurs auf die Türkisküste — und runter vom Gas.',
+      ru:'Ваша Турция — это 300 солнечных дней: бухты в соснах, лодочные дни, заканчивающиеся мезе, и парапланы над лагуной. Держите курс на Бирюзовый берег и сбавьте темп.',
+      ar:'تركيّتك 300 يوم من الشمس: خلجان يحفّها الصنوبر، وأيام قوارب تنتهي بالمزّة، وطائرات شراعية فوق البحيرة. توجّه إلى الساحل الفيروزي وتمهّل.'}},
+  history:{ids:['ephesus','troy','pamukkale','nemrut','gobekli'],
+   t:{en:'The Time Traveller',de:'Der Zeitreisende',ru:'Путешественник во времени',ar:'المسافر عبر الزمن'},
+   d:{en:'You read landscapes like archives. Your route runs from Homer’s Troy through marble Ephesus to a mountaintop where stone gods watch the sunrise — and ends at the world’s first temple.',
+      de:'Sie lesen Landschaften wie Archive. Ihre Route führt von Homers Troja über das marmorne Ephesos zu einem Gipfel, wo Steingötter den Sonnenaufgang bewachen — und endet am ersten Tempel der Welt.',
+      ru:'Вы читаете пейзажи как архивы. Ваш маршрут — от гомеровской Трои через мраморный Эфес к вершине, где каменные боги встречают рассвет, — и до первого храма в мире.',
+      ar:'أنت تقرأ المناظر كما تُقرأ الأرشيفات. مسارك يمتد من طروادة هوميروس عبر أفسس الرخامية إلى قمة تراقب فيها آلهة الحجر شروق الشمس — وينتهي عند أول معبد في العالم.'}},
+  nature:{ids:['uzungol','sumela','safranbolu'],
+   t:{en:'The Highland Soul',de:'Die Hochland-Seele',ru:'Душа высокогорья',ar:'روح المرتفعات'},
+   d:{en:'Mist, spruce forest, tea steaming in a copper pot — your Türkiye is the green Black Sea. Sleep by a mountain lake, climb to a cliff monastery, wake up in an Ottoman timber town.',
+      de:'Nebel, Fichtenwald, dampfender Tee aus der Kupferkanne — Ihre Türkei ist die grüne Schwarzmeerküste. Am Bergsee schlafen, zum Felsenkloster steigen, in einer osmanischen Holzstadt aufwachen.',
+      ru:'Туман, еловый лес, чай из медного чайника — ваша Турция — это зелёное Черноморье. Ночуйте у горного озера, поднимитесь к скальному монастырю, проснитесь в османском деревянном городке.',
+      ar:'ضباب وغابات تنّوب وشاي يتصاعد بخاره من إبريق نحاسي — تركيّتك هي البحر الأسود الأخضر. نم عند بحيرة جبلية، واصعد إلى دير معلّق، واستيقظ في بلدة عثمانية خشبية.'}},
+  culture:{ids:['mardin','gobekli','van','konya'],
+   t:{en:'The Mesopotamian Gourmet',de:'Der Mesopotamien-Genießer',ru:'Месопотамский гурман',ar:'ذوّاقة بلاد الرافدين'},
+   d:{en:'You travel with your senses. Honey-stone towns above endless plains, monasteries chanting in Aramaic, forty-plate breakfasts and pistachio everything — the deep southeast is calling.',
+      de:'Sie reisen mit allen Sinnen. Honigsteinstädte über endlosen Ebenen, aramäische Gesänge in Klöstern, Frühstücke mit vierzig Tellern und Pistazien in allem — der tiefe Südosten ruft.',
+      ru:'Вы путешествуете всеми чувствами. Медовые города над бескрайними равнинами, арамейские песнопения в монастырях, завтраки из сорока тарелок и фисташки во всём — глубокий юго-восток зовёт.',
+      ar:'أنت تسافر بحواسك. مدن بلون العسل فوق سهول لا تنتهي، وأديرة تصلي بالآرامية، وفطور من أربعين صحنًا، وفستق في كل شيء — الجنوب الشرقي العميق يناديك.'}},
+  city:{ids:['hagia','blue','galata','cappadocia'],
+   t:{en:'The Istanbul Romantic',de:'Der Istanbul-Romantiker',ru:'Стамбульский романтик',ar:'عاشق إسطنبول'},
+   d:{en:'Two continents, one skyline, endless evenings. Your Türkiye begins with domes and ferries and seagulls — then takes a night bus to wake up under a hundred balloons in Cappadocia.',
+      de:'Zwei Kontinente, eine Silhouette, endlose Abende. Ihre Türkei beginnt mit Kuppeln, Fähren und Möwen — und nimmt dann den Nachtbus, um unter hundert Ballons in Kappadokien aufzuwachen.',
+      ru:'Два континента, один горизонт, бесконечные вечера. Ваша Турция начинается с куполов, паромов и чаек — а потом ночной автобус, чтобы проснуться под сотней шаров в Каппадокии.',
+      ar:'قارتان وأفق واحد وأمسيات لا تنتهي. تركيّتك تبدأ بالقباب والعبّارات والنوارس — ثم تأخذ حافلة الليل لتستيقظ تحت مئة منطاد في كابادوكيا.'}}
+ }
+};
+
+let qStep = -1, qScores = null, qResult = null;
+
+function renderQuiz(){
+  const box = document.getElementById('quizBox');
+  const head = `<div class="eyebrow">${esc(QZ.eyebrow[lang])}</div><h2 class="serif">${esc(QZ.title[lang])}</h2>`;
+  if(qResult){
+    const P = QZ.personas[qResult];
+    box.innerHTML = `${head}
+      <div class="q-result">
+        <p style="margin:14px 0 0;color:#fcd9a8;font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase">${esc(QZ.kicker[lang])}</p>
+        <h3>${esc(P.t[lang])}</h3>
+        <p>${esc(P.d[lang])}</p>
+        <div class="q-links">${P.ids.map(id => { const d=D.find(x=>x.id===id); return d?`<a href="#/place/${id}">${esc(d.name[lang])}</a>`:''; }).join('')}</div>
+        <div class="q-again">
+          <button type="button" id="qShare">${esc(QZ.share[lang])}</button>
+          <button type="button" id="qRetake">${esc(QZ.retake[lang])}</button>
+        </div>
+      </div>`;
+    box.querySelector('#qRetake').onclick = () => { qResult=null; qStep=-1; history.replaceState(null,'',location.pathname+location.search+'#quiz'); renderQuiz(); };
+    box.querySelector('#qShare').onclick = e => {
+      const url = location.origin + location.pathname + '#/quiz/' + qResult;
+      (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(
+        () => { e.target.textContent = QZ.shared[lang]; setTimeout(()=>{ e.target.textContent = QZ.share[lang]; }, 2000); },
+        () => { prompt('URL:', url); });
+    };
+    return;
+  }
+  if(qStep < 0){
+    box.innerHTML = `${head}<p>${esc(QZ.intro[lang])}</p><button type="button" class="q-start" id="qGo">${esc(QZ.start[lang])}</button>`;
+    box.querySelector('#qGo').onclick = () => { qStep = 0; qScores = {sea:0,history:0,nature:0,culture:0,city:0}; renderQuiz(); };
+    return;
+  }
+  const Q = QZ.questions[qStep];
+  box.innerHTML = `${head}
+    <div class="q-step">
+      <div class="q-prog">${QZ.questions.map((_,i)=>`<i class="${i<=qStep?'on':''}"></i>`).join('')}</div>
+      <h3>${qStep+1}/${QZ.questions.length} · ${esc(Q.q[lang])}</h3>
+      <div class="q-opts">${Q.o.map((o,i)=>`<button type="button" data-i="${i}">${esc(o.t[lang])}</button>`).join('')}</div>
+    </div>`;
+  box.querySelectorAll('.q-opts button').forEach(b => b.onclick = () => {
+    qScores[Q.o[+b.dataset.i].p]++;
+    if(qStep < QZ.questions.length - 1){ qStep++; renderQuiz(); }
+    else {
+      qResult = Object.entries(qScores).sort((a,b)=>b[1]-a[1])[0][0];
+      history.replaceState(null,'',location.pathname+location.search+'#/quiz/'+qResult);
+      renderQuiz();
+    }
+  });
+}
+
+/* shareable quiz result links */
+function quizFromHash(){
+  const m = location.hash.match(/^#\/quiz\/(sea|history|nature|culture|city)$/);
+  if(m){ qResult = m[1]; renderQuiz(); closeDetail(); document.getElementById('quiz').scrollIntoView(); }
+}
+window.addEventListener('hashchange', quizFromHash);
+
+/* ---- Weather (Open-Meteo, no key, CORS-enabled) ---- */
+const GEO = {
+ hagia:[41.008,28.980], blue:[41.005,28.977], galata:[41.026,28.974], troy:[39.957,26.239],
+ ephesus:[37.941,27.342], pamukkale:[37.920,29.121], bodrum:[37.034,27.430], oludeniz:[36.550,29.116],
+ antalya:[36.887,30.703], side:[36.767,31.389], cappadocia:[38.643,34.829], konya:[37.871,32.493],
+ sumela:[40.690,39.658], safranbolu:[41.251,32.694], uzungol:[40.618,40.290], ani:[40.507,43.573],
+ van:[38.494,43.380], gobekli:[37.223,38.922], nemrut:[37.981,38.741], mardin:[37.313,40.735]
+};
+const WX_LABEL = {
+ clear:{en:'Clear',de:'Klar',ru:'Ясно',ar:'صافٍ'},
+ partly:{en:'Partly cloudy',de:'Teils bewölkt',ru:'Переменная облачность',ar:'غائم جزئيًا'},
+ cloud:{en:'Cloudy',de:'Bewölkt',ru:'Облачно',ar:'غائم'},
+ fog:{en:'Fog',de:'Nebel',ru:'Туман',ar:'ضباب'},
+ rain:{en:'Rain',de:'Regen',ru:'Дождь',ar:'مطر'},
+ snow:{en:'Snow',de:'Schnee',ru:'Снег',ar:'ثلج'},
+ storm:{en:'Thunderstorm',de:'Gewitter',ru:'Гроза',ar:'عاصفة رعدية'}
+};
+const WX_ICON = {
+ clear:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7"/></svg>',
+ partly:'<svg viewBox="0 0 24 24"><circle cx="8.5" cy="8.5" r="3.4"/><path d="M8.5 2.6v1.7M2.6 8.5h1.7M4.3 4.3l1.2 1.2M12.7 4.3l-1.2 1.2M7 21h9.5a3.5 3.5 0 0 0 .6-6.95A5 5 0 0 0 7.5 15 3 3 0 0 0 7 21z"/></svg>',
+ cloud:'<svg viewBox="0 0 24 24"><path d="M6.5 19h11a4 4 0 0 0 .7-7.94A6 6 0 0 0 6.6 11.5 3.8 3.8 0 0 0 6.5 19z"/></svg>',
+ fog:'<svg viewBox="0 0 24 24"><path d="M4 15h16M6 18.2h12M8 21.2h8M6.5 12a5.5 5.5 0 0 1 10.9-1.2A3.6 3.6 0 0 1 20 12"/></svg>',
+ rain:'<svg viewBox="0 0 24 24"><path d="M6.5 15h11a4 4 0 0 0 .7-7.94A6 6 0 0 0 6.6 7.5 3.8 3.8 0 0 0 6.5 15z"/><path d="M8.5 17.5l-1 2.6M12.5 17.5l-1 2.6M16.5 17.5l-1 2.6"/></svg>',
+ snow:'<svg viewBox="0 0 24 24"><path d="M6.5 14h11a4 4 0 0 0 .7-7.94A6 6 0 0 0 6.6 6.5 3.8 3.8 0 0 0 6.5 14z"/><path d="M8 17.4h.01M12 19.4h.01M16 17.4h.01M10 21h.01M14 21.4h.01"/></svg>',
+ storm:'<svg viewBox="0 0 24 24"><path d="M6.5 14h11a4 4 0 0 0 .7-7.94A6 6 0 0 0 6.6 6.5 3.8 3.8 0 0 0 6.5 14z"/><path d="M12.8 15.5l-2.3 3.4h3l-2.3 3.6"/></svg>'
+};
+function wxKind(code){
+  if(code===0) return 'clear';
+  if(code<=2) return 'partly';
+  if(code===3) return 'cloud';
+  if(code<=48) return 'fog';
+  if(code<=67 || (code>=80 && code<=82)) return 'rain';
+  if(code<=77 || code===85 || code===86) return 'snow';
+  return 'storm';
+}
+const WX_CACHE = {};
+
+function injectWeather(id){
+  if(!GEO[id]) return;
+  const facts = detailEl.querySelector('.d-facts');
+  if(!facts || detailEl.querySelector('.wx')) return;
+  const el = document.createElement('div');
+  el.className = 'wx'; el.style.display = 'none';
+  facts.after(el);
+  const draw = data => {
+    if(openId !== id) return;
+    const cur = data.current_weather, dy = data.daily;
+    const k = wxKind(cur.weathercode);
+    const fmt = new Intl.DateTimeFormat(LOCALES[lang], {weekday:'short'});
+    el.innerHTML = `
+      <div class="wx-head">${WX_ICON[k]}<b>${esc(UI.wxTitle[lang])}</b></div>
+      <div class="wx-now"><span class="wx-t">${Math.round(cur.temperature)}°</span><span>${esc(WX_LABEL[k][lang])}</span></div>
+      <div class="wx-days">${dy.time.slice(0,5).map((t,i) => `
+        <div class="wx-day"><b>${esc(fmt.format(new Date(t+'T12:00:00')))}</b>${WX_ICON[wxKind(dy.weathercode[i])]}
+        <div class="wx-mm">${Math.round(dy.temperature_2m_max[i])}° / ${Math.round(dy.temperature_2m_min[i])}°</div></div>`).join('')}
+      </div>
+      <div class="wx-note">${esc(UI.wxNote[lang])}</div>`;
+    el.style.display = '';
+  };
+  if(WX_CACHE[id]){ draw(WX_CACHE[id]); return; }
+  const [la, lo] = GEO[id];
+  fetch(`https://api.open-meteo.com/v1/forecast?latitude=${la}&longitude=${lo}&current_weather=true&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=5`)
+    .then(r => r.json())
+    .then(data => { WX_CACHE[id] = data; draw(data); })
+    .catch(() => { el.remove(); });
+}
+const _renderDetail = renderDetail;
+renderDetail = function(id){ _renderDetail(id); injectWeather(id); };
+
+/* ---- Lightbox ---- */
+const lb = document.createElement('div');
+lb.id = 'lb';
+lb.innerHTML = `<span class="lb-count"></span>
+  <button class="lb-btn" id="lb-close" aria-label="Close">✕</button>
+  <button class="lb-btn" id="lb-prev" aria-label="Previous">‹</button>
+  <img alt=""><figcaption></figcaption>
+  <button class="lb-btn" id="lb-next" aria-label="Next">›</button>`;
+document.body.appendChild(lb);
+let lbItems = [], lbIdx = 0;
+
+function lbShow(){
+  const it = lbItems[lbIdx];
+  lb.querySelector('img').src = it.src;
+  lb.querySelector('img').alt = it.cap || '';
+  lb.querySelector('figcaption').textContent = it.cap || '';
+  lb.querySelector('.lb-count').textContent = (lbIdx+1) + ' / ' + lbItems.length;
+}
+function lbOpen(items, idx){ lbItems = items; lbIdx = idx; lbShow(); lb.classList.add('open'); }
+function lbClose(){ lb.classList.remove('open'); }
+function lbMove(d){ lbIdx = (lbIdx + d + lbItems.length) % lbItems.length; lbShow(); }
+
+lb.querySelector('#lb-close').onclick = lbClose;
+lb.querySelector('#lb-prev').onclick = () => lbMove(-1);
+lb.querySelector('#lb-next').onclick = () => lbMove(1);
+lb.addEventListener('click', e => { if(e.target === lb) lbClose(); });
+document.addEventListener('keydown', e => {
+  if(!lb.classList.contains('open')) return;
+  const rtl = document.documentElement.dir === 'rtl';
+  if(e.key === 'Escape'){ e.stopImmediatePropagation(); lbClose(); }
+  if(e.key === 'ArrowRight') lbMove(rtl ? -1 : 1);
+  if(e.key === 'ArrowLeft') lbMove(rtl ? 1 : -1);
+}, true);
+let lbX = null;
+lb.addEventListener('pointerdown', e => { lbX = e.clientX; });
+lb.addEventListener('pointerup', e => {
+  if(lbX === null) return;
+  const dx = e.clientX - lbX; lbX = null;
+  if(Math.abs(dx) > 60) lbMove(dx < 0 ? 1 : -1);
+});
+
+function detailImages(id){
+  const d = D.find(x => x.id === id), det = DETAILS[id] || {};
+  const items = [{src:d.img, cap:d.name[lang]}];
+  (det.gallery||[]).forEach(g => items.push({src:g.src, cap:g.cap[lang]}));
+  return items;
+}
+detailEl.addEventListener('click', e => {
+  const img = e.target.closest('.d-gallery img, .d-hero img');
+  if(!img || !openId) return;
+  const items = detailImages(openId);
+  const idx = Math.max(0, items.findIndex(it => img.src.endsWith(it.src.split('/').pop())));
+  lbOpen(items, idx);
+});
+detailEl.querySelectorAll && detailEl.addEventListener('keydown', e => {
+  if(e.key === 'Enter' && e.target.matches('.d-gallery img')) e.target.click();
+});
+
+/* ---- wire language re-render for new sections ---- */
+const _applyUI2 = applyUI;
+applyUI = function(){ _applyUI2(); renderSeason(); renderQuiz(); };
+
+renderSeason();
+renderQuiz();
+quizFromHash();
 </script>
 </body>
 </html>
