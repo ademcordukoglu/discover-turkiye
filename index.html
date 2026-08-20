@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Discover Türkiye</title>
+<meta name="description" content="A visual guide to Türkiye's most spectacular destinations — Istanbul, Cappadocia, Pamukkale, Ephesus and more. In English, Deutsch, Русский and العربية.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:light;
+  --teal:#0e7490; --teal-dark:#155e75; --ink:#1c2733; --ink-soft:#46586a;
+  --sand:#faf6ef; --card:#ffffff; --line:#e8e0d2; --terra:#c2571b; --gold:#b98a2f;
+  --radius:18px; --shadow:0 2px 8px rgba(28,39,51,.06),0 12px 32px rgba(28,39,51,.08);
+  --shadow-lg:0 6px 16px rgba(28,39,51,.10),0 24px 48px rgba(28,39,51,.14);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--sand);color:var(--ink);line-height:1.6}
+h1,h2,h3,.serif{font-family:'Playfair Display',Georgia,serif;text-wrap:balance}
+img{display:block;max-width:100%}
+:focus-visible{outline:2.5px solid var(--terra);outline-offset:3px;border-radius:4px}
+.hero :focus-visible{outline-color:#fcd9a8}
+
+/* ---------- Arabic / RTL ---------- */
+html[lang="ar"] body{font-family:'IBM Plex Sans Arabic','Noto Sans Arabic',system-ui,sans-serif}
+html[lang="ar"] h1,html[lang="ar"] h2,html[lang="ar"] h3,html[lang="ar"] .serif{font-family:'Amiri','Times New Roman',serif;line-height:1.4}
+/* letter-spacing breaks Arabic letter joining — never apply it */
+html[lang="ar"] .kicker,html[lang="ar"] .eyebrow,html[lang="ar"] .brand,
+html[lang="ar"] .badge,html[lang="ar"] .unesco,html[lang="ar"] .stat span,
+html[lang="ar"] .langs button{letter-spacing:normal}
+html[lang="ar"] .hero h1{font-size:clamp(38px,6.2vw,74px)}
+html[lang="ar"] .langs button[data-lang="ar"]{font-family:'IBM Plex Sans Arabic',sans-serif}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;min-height:88vh;display:flex;flex-direction:column;color:#fff;
+  background:linear-gradient(rgba(10,24,36,.50),rgba(10,24,36,.24) 42%,rgba(10,24,36,.80)),
+  url('assets/hero.jpg') center 72%/cover no-repeat #123;}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px clamp(20px,5vw,64px);flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.14em;font-size:14px;text-transform:uppercase}
+.brand .crescent{width:26px;height:26px;flex:none}
+.langs{display:flex;gap:6px;background:rgba(255,255,255,.14);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:5px}
+.langs button{border:0;background:transparent;color:#fff;font:600 13px 'Inter',sans-serif;padding:7px 14px;border-radius:999px;cursor:pointer;transition:background .2s;letter-spacing:.04em}
+.langs button:hover{background:rgba(255,255,255,.18)}
+.langs button.active{background:#fff;color:var(--teal-dark)}
+.hero-inner{flex:1;display:flex;flex-direction:column;justify-content:center;padding:0 clamp(20px,6vw,80px);max-width:1000px}
+.kicker{font-size:13px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:#fcd9a8;margin-bottom:18px}
+.hero h1{font-size:clamp(42px,7vw,84px);font-weight:700;line-height:1.05;text-shadow:0 2px 24px rgba(0,0,0,.45)}
+.hero p.lead{margin-top:22px;font-size:clamp(16px,2vw,20px);max-width:62ch;color:#f4f1ea;text-shadow:0 1px 14px rgba(0,0,0,.55)}
+.hero-cta{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-block;padding:14px 28px;border-radius:999px;font-weight:600;font-size:15px;text-decoration:none;transition:transform .25s,box-shadow .25s,background .25s}
+.btn-primary{background:#fff;color:var(--teal-dark)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.3)}
+.btn-ghost{border:1.5px solid rgba(255,255,255,.7);color:#fff}
+.btn-ghost:hover{background:rgba(255,255,255,.15)}
+.hero-stats{display:flex;gap:clamp(24px,5vw,64px);padding:26px clamp(20px,6vw,80px) 40px;flex-wrap:wrap}
+.stat b{display:block;font-family:'Playfair Display',serif;font-size:30px;font-weight:700;font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:#e8e2d5;letter-spacing:.05em}
+
+/* ---------- Sections ---------- */
+.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+section{padding:72px 0 20px}
+.sec-head{max-width:70ch;margin-bottom:14px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--terra)}
+.sec-head h2{font-size:clamp(30px,4vw,44px);font-weight:700;margin:10px 0 12px;color:var(--ink)}
+.sec-head p{color:var(--ink-soft);font-size:16.5px}
+
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:26px 0 34px}
+.filters button{border:1.5px solid var(--line);background:#fff;color:var(--ink-soft);font:600 13px 'Inter',sans-serif;padding:9px 18px;border-radius:999px;cursor:pointer;transition:border-color .2s,color .2s,background .2s}
+html[lang="ar"] .filters button{font-family:'IBM Plex Sans Arabic',sans-serif}
+.filters button:hover{border-color:var(--teal);color:var(--teal)}
+
+.region-sec{padding:34px 0 6px;scroll-margin-top:20px}
+.region-head{display:flex;gap:18px;align-items:baseline;margin-bottom:26px;border-bottom:2px solid var(--line);padding-bottom:16px}
+.region-num{font-family:'Playfair Display',serif;font-size:44px;font-weight:700;color:var(--terra);opacity:.35;line-height:1;font-variant-numeric:tabular-nums}
+.region-head h3{font-size:clamp(24px,3vw,32px);font-weight:700;color:var(--ink)}
+.region-head p{color:var(--ink-soft);font-size:15px;margin-top:2px}
+.region-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:28px}
+
+.grid{padding-bottom:40px;display:flex;flex-direction:column}
+.card{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.card .imgbox{position:relative;aspect-ratio:16/10;overflow:hidden;background:linear-gradient(135deg,#8bb8c9,#155e75)}
+.card .imgbox img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.card:hover .imgbox img{transform:scale(1.06)}
+.badge{position:absolute;top:14px;inset-inline-start:14px;background:rgba(9,32,44,.72);backdrop-filter:blur(6px);color:#fff;font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px}
+.unesco{position:absolute;top:14px;inset-inline-end:14px;background:rgba(255,255,255,.92);color:var(--teal-dark);font-size:11px;font-weight:700;letter-spacing:.06em;padding:6px 10px;border-radius:999px}
+.card-body{padding:22px 24px 24px;display:flex;flex-direction:column;gap:12px;flex:1}
+.card h3{font-size:23px;font-weight:600;color:var(--ink)}
+.card .desc{color:var(--ink-soft);font-size:14.8px}
+.facts{margin-top:auto;border-top:1px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:8px}
+.fact{display:flex;gap:10px;font-size:13.6px;color:var(--ink-soft)}
+.fact svg{flex:none;width:16px;height:16px;margin-top:2.5px;stroke:var(--teal);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.fact b{color:var(--ink);font-weight:600}
+
+.tips{background:linear-gradient(180deg,#0f3846,#155e75);border-radius:26px;padding:clamp(30px,5vw,60px);margin:30px 0 80px;color:#eaf4f6}
+.tips .eyebrow{color:#fcd9a8}
+.tips h2{color:#fff;font-size:clamp(28px,3.5vw,38px);margin:10px 0 8px}
+.tips>p{color:#c8dde2;max-width:70ch}
+.tip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;margin-top:34px}
+.tip{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:22px}
+.tip .t-ico{width:38px;height:38px;border-radius:10px;background:rgba(252,217,168,.15);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.tip .t-ico svg{width:20px;height:20px;stroke:#fcd9a8;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tip h3{font-family:'Inter',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:8px}
+html[lang="ar"] .tip h3{font-family:'IBM Plex Sans Arabic',sans-serif}
+.tip p{font-size:14px;color:#c8dde2}
+
+footer{border-top:1px solid var(--line);padding:34px 0 46px;color:var(--ink-soft);font-size:13.5px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer a{color:var(--teal);text-decoration:none}
+footer a:hover{text-decoration:underline}
+
+@media(max-width:640px){
+  .hero{min-height:76vh}
+  .hero-stats{gap:22px}
+  section{padding:56px 0 10px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.01ms !important;animation-duration:.01ms !important}
+  .card:hover{transform:none}
+  .card:hover .imgbox img{transform:none}
+  .btn-primary:hover{transform:none}
+}
+</style>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Discover Türkiye">
+<meta property="og:description" content="A visual guide to 19 destinations across Türkiye's seven regions — in English, Deutsch, Русский and العربية.">
+<meta property="og:image" content="assets/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<header class="hero">
+  <div class="topbar">
+    <div class="brand">
+      <svg class="crescent" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M14.6 2.6a9.5 9.5 0 1 0 6.8 12.9A8 8 0 1 1 14.6 2.6z"/><path d="M17.4 9.2l.9 1.9 2.1.3-1.5 1.4.4 2.1-1.9-1-1.9 1 .4-2.1-1.5-1.4 2.1-.3z"/></svg>
+      <span data-i18n="brand">Discover Türkiye</span>
+    </div>
+    <nav class="langs" aria-label="Language">
+      <button data-lang="en" class="active" lang="en">EN</button>
+      <button data-lang="de" lang="de">DE</button>
+      <button data-lang="ru" lang="ru">RU</button>
+      <button data-lang="ar" lang="ar">العربية</button>
+    </nav>
+  </div>
+  <div class="hero-inner">
+    <div class="kicker" data-i18n="kicker">Where two continents meet</div>
+    <h1 data-i18n="heroTitle">Türkiye, land of ten thousand years</h1>
+    <p class="lead" data-i18n="heroLead">From the domes of Istanbul to the fairy chimneys of Cappadocia and the turquoise coves of the Mediterranean — a visual guide to the country's most unforgettable places.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#destinations" data-i18n="ctaExplore">Explore destinations</a>
+      <a class="btn btn-ghost" href="#tips" data-i18n="ctaTips">Travel tips</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><b>22</b><span data-i18n="statUnesco">UNESCO World Heritage Sites</span></div>
+    <div class="stat"><b data-i18n="statCoastNum">8,300+ km</b><span data-i18n="statCoast">of coastline on four seas</span></div>
+    <div class="stat"><b>2</b><span data-i18n="statCont">continents, one country</span></div>
+  </div>
+</header>
+
+<main>
+  <section id="destinations" class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow" data-i18n="destEyebrow">Region by region</div>
+      <h2 data-i18n="destTitle">What to see, region by region</h2>
+      <p data-i18n="destIntro">Seven regions, 19 hand-picked places. Jump to a region:</p>
+    </div>
+    <div class="filters" id="filters"></div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section id="tips" class="wrap">
+    <div class="tips">
+      <div class="eyebrow" data-i18n="tipsEyebrow">Good to know</div>
+      <h2 data-i18n="tipsTitle">Practical tips for your trip</h2>
+      <p data-i18n="tipsIntro">A few things that make travelling in Türkiye easier — from visas and money to mosque etiquette.</p>
+      <div class="tip-grid" id="tipgrid"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div data-i18n="footNote">Made with love for travellers · Information is indicative — always check opening hours and tickets locally.</div>
+    <div data-i18n-html="footCredit">Photos: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC licenses)</div>
+  </div>
+</footer>
+
+<script>
+/* ================= REGIONS ================= */
+const REGION_ORDER = ['marmara','aegean','med','central','north','east','southeast'];
+const REGIONS = {
+  marmara:{
+    name:{en:'Marmara & Istanbul',de:'Marmara & Istanbul',ru:'Мраморный регион и Стамбул',ar:'مرمرة وإسطنبول'},
+    tag:{en:'Two continents, three empires — and the walls of Troy',de:'Zwei Kontinente, drei Weltreiche — und die Mauern von Troja',ru:'Два континента, три империи — и стены Трои',ar:'قارتان وثلاث إمبراطوريات — وأسوار طروادة'}},
+  aegean:{
+    name:{en:'Aegean Coast',de:'Ägäisküste',ru:'Эгейское побережье',ar:'ساحل بحر إيجة'},
+    tag:{en:'Marble cities of antiquity, thermal terraces and whitewashed harbours',de:'Antike Marmorstädte, Thermalterrassen und weiße Hafenstädtchen',ru:'Мраморные античные города, термальные террасы и белые гавани',ar:'مدن رخامية من العصور القديمة، ومدرّجات حرارية، وموانئ بيضاء'}},
+  med:{
+    name:{en:'Mediterranean — the Turquoise Coast',de:'Mittelmeer — die Türkisküste',ru:'Средиземноморье — Бирюзовый берег',ar:'البحر المتوسط — الساحل الفيروزي'},
+    tag:{en:'Pine-fringed lagoons, Lycian ruins and 300 days of sunshine',de:'Pinienlagunen, lykische Ruinen und 300 Sonnentage im Jahr',ru:'Лагуны в соснах, ликийские руины и 300 солнечных дней в году',ar:'بحيرات شاطئية يحفّها الصنوبر، وأطلال ليكية، و300 يوم مشمس'}},
+  central:{
+    name:{en:'Central Anatolia',de:'Zentralanatolien',ru:'Центральная Анатолия',ar:'وسط الأناضول'},
+    tag:{en:'Fairy chimneys, underground cities and the home of the whirling dervishes',de:'Feenkamine, unterirdische Städte und die Heimat der tanzenden Derwische',ru:'«Камины фей», подземные города и родина кружащихся дервишей',ar:'مداخن الجنّ، ومدن تحت الأرض، وموطن الدراويش الدوّارين'}},
+  north:{
+    name:{en:'Black Sea',de:'Schwarzmeerregion',ru:'Черноморский регион',ar:'البحر الأسود'},
+    tag:{en:'Cliff monasteries, tea gardens and perfectly preserved Ottoman towns',de:'Felsenklöster, Teegärten und perfekt erhaltene osmanische Städte',ru:'Монастыри на скалах, чайные плантации и османские городки',ar:'أديرة معلّقة على الصخر، وحدائق شاي، ومدن عثمانية محفوظة بالكامل'}},
+  east:{
+    name:{en:'Eastern Anatolia',de:'Ostanatolien',ru:'Восточная Анатолия',ar:'شرق الأناضول'},
+    tag:{en:'High plateaus, a ghost capital and church islands on a soda lake',de:'Hochebenen, eine Geisterhauptstadt und Kircheninseln in einem Sodasee',ru:'Высокогорные плато, город-призрак и остров-храм на содовом озере',ar:'هضاب عالية، وعاصمة مهجورة، وجزيرة كنيسة في بحيرة صودية'}},
+  southeast:{
+    name:{en:'Southeastern Anatolia',de:'Südostanatolien',ru:'Юго-Восточная Анатолия',ar:'جنوب شرق الأناضول'},
+    tag:{en:'Mesopotamia: the world’s first temple and cities older than history',de:'Mesopotamien: der erste Tempel der Welt und Städte älter als die Geschichte',ru:'Месопотамия: первый храм в мире и города древнее самой истории',ar:'بلاد الرافدين: أقدم معبد في العالم ومدن أقدم من التاريخ'}}
+};
+
+/* ================= DESTINATIONS ================= */
+const D = [
+{id:'hagia', img:'assets/hagia.jpg', region:'marmara', unesco:true,
+ name:{en:'Hagia Sophia',de:'Hagia Sophia',ru:'Собор Святой Софии',ar:'آيا صوفيا'},
+ desc:{en:'Built in 537 AD as the greatest cathedral of Byzantium, later an imperial mosque — for almost a thousand years this was the largest enclosed space on Earth. Its floating golden dome and layered history make it Türkiye’s single most famous building.',
+       de:'537 n. Chr. als größte Kathedrale von Byzanz erbaut, später kaiserliche Moschee — fast tausend Jahre lang war dies der größte überdachte Raum der Welt. Die schwebende goldene Kuppel und die vielschichtige Geschichte machen sie zum berühmtesten Bauwerk der Türkei.',
+       ru:'Построенный в 537 году как величайший собор Византии, позднее — императорская мечеть. Почти тысячу лет это было самое большое крытое здание на Земле. «Парящий» золотой купол и многослойная история делают Айя-Софию самым знаменитым зданием Турции.',
+       ar:'شُيّدت عام 537م لتكون أعظم كاتدرائيات بيزنطة، ثم صارت جامعًا سلطانيًا. ظلّت نحو ألف عام أكبر فضاء مسقوف على وجه الأرض، وقبتها الذهبية التي تبدو معلّقة في الهواء وتاريخها المتراكم يجعلانها أشهر مبنى في تركيا.'},
+ loc:{en:'Sultanahmet, Istanbul',de:'Sultanahmet, Istanbul',ru:'Султанахмет, Стамбул',ar:'السلطان أحمد، إسطنبول'},
+ best:{en:'Apr–Jun & Sep–Nov; go right at opening',de:'Apr–Jun & Sep–Nov; direkt zur Öffnung',ru:'Апр–июнь и сент–ноябрь; приходите к открытию',ar:'أبريل–يونيو وسبتمبر–نوفمبر؛ اذهب عند الافتتاح مباشرة'},
+ tip:{en:'Foreign visitors tour the upper gallery (ticket ≈ €25); closed to tourists during prayer times.',
+      de:'Touristen besichtigen die obere Galerie (Ticket ≈ 25 €); während der Gebetszeiten geschlossen.',
+      ru:'Туристы осматривают верхнюю галерею (билет ≈ 25 €); во время намаза вход для туристов закрыт.',
+      ar:'يزور الأجانب الطابق العلوي (التذكرة نحو 25 يورو)، ويُغلق أمام السياح في أوقات الصلاة.'}},
+
+{id:'blue', img:'assets/blue.jpg', region:'marmara', unesco:true,
+ name:{en:'Blue Mosque & Sultanahmet',de:'Blaue Moschee & Sultanahmet',ru:'Голубая мечеть и Султанахмет',ar:'المسجد الأزرق والسلطان أحمد'},
+ desc:{en:'The Sultan Ahmed Mosque, crowned by six minarets and lined with 20,000 handmade İznik tiles, faces Hagia Sophia across a rose garden. Around it lies the old imperial quarter: Topkapı Palace, the Basilica Cistern and the Grand Bazaar’s 4,000 shops.',
+       de:'Die Sultan-Ahmed-Moschee mit ihren sechs Minaretten und 20.000 handgefertigten İznik-Fliesen liegt der Hagia Sophia direkt gegenüber. Ringsum erstreckt sich das alte Kaiserviertel: Topkapı-Palast, Cisterna Basilica und der Große Basar mit 4.000 Läden.',
+       ru:'Мечеть Султанахмет с шестью минаретами и 20 000 изникских изразцов стоит напротив Айя-Софии. Вокруг — старый императорский квартал: дворец Топкапы, Цистерна Базилика и Гранд-базар с 4 000 лавок.',
+       ar:'يقف جامع السلطان أحمد بمآذنه الستّ، مكسوًّا بعشرين ألف قطعة قيشاني من إزنيق صُنعت يدويًا، قبالة آيا صوفيا عبر حديقة ورد. وحوله يمتد الحيّ السلطاني القديم: قصر طوب قابي، وصهريج البازيليك، والبازار الكبير بأربعة آلاف دكان.'},
+ loc:{en:'Sultanahmet, Istanbul',de:'Sultanahmet, Istanbul',ru:'Султанахмет, Стамбул',ar:'السلطان أحمد، إسطنبول'},
+ best:{en:'Year-round; dusk for the best photos',de:'Ganzjährig; Abenddämmerung für Fotos',ru:'Круглый год; лучшие фото — на закате',ar:'طوال العام؛ أجمل الصور عند الغسق'},
+ tip:{en:'Entry is free, outside the five daily prayers. Dress modestly; scarves are provided at the door.',
+      de:'Eintritt frei, außerhalb der fünf Gebetszeiten. Angemessene Kleidung; Tücher gibt es am Eingang.',
+      ru:'Вход бесплатный вне пяти ежедневных намазов. Одевайтесь скромно; платки выдают у входа.',
+      ar:'الدخول مجاني خارج أوقات الصلوات الخمس. الْبس لباسًا محتشمًا؛ والأغطية متوفّرة عند الباب.'}},
+
+{id:'galata', img:'assets/galata.jpg', region:'marmara', unesco:false,
+ name:{en:'Galata & the Bosphorus',de:'Galata & der Bosporus',ru:'Галата и Босфор',ar:'غلطة والبوسفور'},
+ desc:{en:'Cross the Galata Bridge past anglers and fish sandwiches, climb the 14th-century Genoese tower for a 360° panorama, then take a ferry up the strait that separates Europe from Asia — the cheapest world-class cruise anywhere.',
+       de:'Über die Galatabrücke, vorbei an Anglern und Fischbrötchen, hinauf auf den genuesischen Turm aus dem 14. Jh. mit 360°-Panorama — und dann per Fähre über die Meerenge zwischen Europa und Asien: die günstigste Weltklasse-Kreuzfahrt überhaupt.',
+       ru:'Перейдите Галатский мост мимо рыбаков и лотков с балык-экмеком, поднимитесь на генуэзскую башню XIV века ради панорамы 360°, а затем прокатитесь на пароме по проливу между Европой и Азией — самый дешёвый круиз мирового уровня.',
+       ar:'اعبر جسر غلطة بين الصيّادين وأكشاك سندويش السمك، واصعد برج جنوة الذي يعود إلى القرن الرابع عشر لترى بانوراما 360 درجة، ثم اركب عبّارة في المضيق الفاصل بين أوروبا وآسيا — أرخص رحلة بحرية عالمية المستوى في أي مكان.'},
+ loc:{en:'Karaköy / Beyoğlu, Istanbul',de:'Karaköy / Beyoğlu, Istanbul',ru:'Каракёй / Бейоглу, Стамбул',ar:'قره كوي / بي أوغلو، إسطنبول'},
+ best:{en:'Year-round; sunset ferry is magical',de:'Ganzjährig; Fähre bei Sonnenuntergang',ru:'Круглый год; паром на закате — волшебство',ar:'طوال العام؛ عبّارة الغروب ساحرة'},
+ tip:{en:'Use an Istanbulkart for ferries, trams and metro — public ferries beat pricey tourist cruises.',
+      de:'Mit der Istanbulkart fahren Sie Fähre, Tram und Metro — Linienfähren schlagen teure Touristenboote.',
+      ru:'Заведите Istanbulkart для паромов, трамваев и метро — рейсовые паромы лучше дорогих туристических.',
+      ar:'استخدم بطاقة «إسطنبول كارت» للعبّارات والترام والمترو — عبّارات النقل العام أفضل من الجولات السياحية الغالية.'}},
+
+{id:'troy', img:'assets/troy.jpg', region:'marmara', unesco:true,
+ name:{en:'Troy',de:'Troja',ru:'Троя',ar:'طروادة'},
+ desc:{en:'The legendary city of Homer’s Iliad, where archaeologists found nine cities stacked over 4,000 years. Walk the ancient walls, pose with the wooden horse, then dive deeper at the striking modern Troy Museum next door.',
+       de:'Die legendäre Stadt aus Homers Ilias — Archäologen fanden hier neun übereinanderliegende Städte aus 4.000 Jahren. Über die antiken Mauern spazieren, mit dem Holzpferd posieren und dann ins beeindruckende moderne Troja-Museum nebenan.',
+       ru:'Легендарный город «Илиады» Гомера: археологи нашли здесь девять городов, наслоившихся за 4 000 лет. Пройдите по древним стенам, сфотографируйтесь с деревянным конём и загляните в впечатляющий современный Музей Трои рядом.',
+       ar:'المدينة الأسطورية في «إلياذة» هوميروس، حيث كشف علماء الآثار تسع مدن متراكمة عبر أربعة آلاف عام. تمشَّ على الأسوار القديمة، والتقط صورة مع الحصان الخشبي، ثم تعمّق أكثر في متحف طروادة الحديث اللافت المجاور.'},
+ loc:{en:'Near Çanakkale, Dardanelles',de:'Bei Çanakkale, Dardanellen',ru:'Близ Чанаккале, Дарданеллы',ar:'قرب چاناق قلعة، الدردنيل'},
+ best:{en:'Apr–Jun & Sep–Oct',de:'Apr–Jun & Sep–Okt',ru:'Апр–июнь и сент–октябрь',ar:'أبريل–يونيو وسبتمبر–أكتوبر'},
+ tip:{en:'Combine with the moving Gallipoli battlefields across the strait for a full day of history.',
+      de:'Mit den bewegenden Schlachtfeldern von Gallipoli auf der anderen Seite der Meerenge zu einem ganzen Geschichtstag verbinden.',
+      ru:'Совместите с полями сражений Галлиполи на другом берегу пролива — получится целый день истории.',
+      ar:'اجمعها مع ميادين معارك غاليبولي المؤثّرة على الضفة المقابلة لتحصل على يوم كامل من التاريخ.'}},
+
+{id:'cappadocia', img:'assets/cappadocia.jpg', region:'central', unesco:true,
+ name:{en:'Cappadocia',de:'Kappadokien',ru:'Каппадокия',ar:'كابادوكيا'},
+ desc:{en:'A surreal volcanic landscape of fairy chimneys, hidden Byzantine cave churches and entire underground cities. At dawn, more than a hundred hot-air balloons drift over the valleys of Göreme — one of the world’s great travel spectacles.',
+       de:'Eine surreale Vulkanlandschaft aus Feenkaminen, byzantinischen Höhlenkirchen und ganzen unterirdischen Städten. Im Morgengrauen schweben über hundert Heißluftballons über die Täler von Göreme — eines der großen Reiseschauspiele der Welt.',
+       ru:'Сюрреалистический вулканический пейзаж: «камины фей», византийские пещерные церкви и целые подземные города. На рассвете над долинами Гёреме поднимается больше сотни воздушных шаров — одно из главных зрелищ мира.',
+       ar:'منظر بركاني سرياليّ من مداخن الجنّ، وكنائس بيزنطية محفورة في الكهوف، ومدن كاملة تحت الأرض. عند الفجر ينساب أكثر من مئة منطاد فوق وديان غوريمه — أحد أعظم المشاهد السياحية في العالم.'},
+ loc:{en:'Göreme / Nevşehir, Central Anatolia',de:'Göreme / Nevşehir, Zentralanatolien',ru:'Гёреме / Невшехир, Центральная Анатолия',ar:'غوريمه / نوشهير، وسط الأناضول'},
+ best:{en:'Apr–Jun & Sep–Nov for flights',de:'Apr–Jun & Sep–Nov für Ballonfahrten',ru:'Апр–июнь и сент–ноябрь — сезон полётов',ar:'أبريل–يونيو وسبتمبر–نوفمبر لرحلات المناطيد'},
+ tip:{en:'Book balloons ahead and allow 2–3 mornings — flights are cancelled in wind. Stay in a cave hotel.',
+      de:'Ballonfahrt vorab buchen und 2–3 Morgen einplanen — bei Wind wird abgesagt. Übernachten Sie im Höhlenhotel.',
+      ru:'Бронируйте шар заранее и закладывайте 2–3 утра — при ветре полёты отменяют. Ночуйте в пещерном отеле.',
+      ar:'احجز المنطاد مسبقًا واترك متّسعًا لصباحين أو ثلاثة — تُلغى الرحلات عند اشتداد الريح. وأقم في فندق كهفي.'}},
+
+{id:'pamukkale', img:'assets/pamukkale.jpg', region:'aegean', unesco:true,
+ name:{en:'Pamukkale & Hierapolis',de:'Pamukkale & Hierapolis',ru:'Памуккале и Иераполис',ar:'باموق قلعة وهيرابوليس'},
+ desc:{en:'The "Cotton Castle": a hillside of dazzling white travertine terraces filled with warm, mineral-rich water. On the plateau above sit the ruins of Roman Hierapolis, where you can swim among sunken ancient columns in Cleopatra’s Pool.',
+       de:'Die „Baumwollburg": ein Hang aus blendend weißen Travertin-Terrassen voll warmem Thermalwasser. Auf dem Plateau darüber liegen die Ruinen des römischen Hierapolis — im Kleopatra-Becken schwimmt man zwischen versunkenen antiken Säulen.',
+       ru:'«Хлопковый замок» — склон из ослепительно белых травертиновых террас с тёплой минеральной водой. Наверху — руины римского Иераполиса, а в «бассейне Клеопатры» можно плавать среди затонувших античных колонн.',
+       ar:'«قلعة القطن»: منحدر من مدرّجات الترافرتين البيضاء الباهرة تملؤها مياه دافئة غنية بالمعادن. وفوق الهضبة تقوم أطلال هيرابوليس الرومانية، حيث تسبح بين أعمدة قديمة غارقة في «بركة كليوباترا».'},
+ loc:{en:'Near Denizli, Aegean region',de:'Bei Denizli, Ägäisregion',ru:'Близ Денизли, Эгейский регион',ar:'قرب دنيزلي، منطقة بحر إيجة'},
+ best:{en:'Early morning or golden hour; avoid midday heat',de:'Früher Morgen oder goldene Stunde',ru:'Раннее утро или «золотой час»; избегайте полуденной жары',ar:'الصباح الباكر أو الساعة الذهبية؛ تجنّب حرّ الظهيرة'},
+ tip:{en:'Shoes come off on the terraces — bring a bag for them and non-slip confidence; the stone can be slick.',
+      de:'Auf den Terrassen gilt Barfußpflicht — Beutel für die Schuhe mitnehmen, der Stein kann rutschig sein.',
+      ru:'По террасам ходят босиком — возьмите пакет для обуви и будьте осторожны: камень скользкий.',
+      ar:'المشي على المدرّجات حافي القدمين إلزامي — أحضر كيسًا لحذائك وانتبه: الحجر زَلِق.'}},
+
+{id:'ephesus', img:'assets/ephesus.jpg', region:'aegean', unesco:true,
+ name:{en:'Ephesus',de:'Ephesos',ru:'Эфес',ar:'أفسس'},
+ desc:{en:'The best-preserved classical city of the eastern Mediterranean. Walk marble streets past the two-storey Library of Celsus, terraced Roman houses with intact frescoes, and a great theatre that once seated 25,000 spectators.',
+       de:'Die besterhaltene antike Stadt des östlichen Mittelmeers. Marmorstraßen führen an der zweistöckigen Celsus-Bibliothek, römischen Hanghäusern mit intakten Fresken und einem Theater für 25.000 Zuschauer vorbei.',
+       ru:'Лучше всего сохранившийся античный город Восточного Средиземноморья. Мраморные улицы ведут мимо двухъярусной библиотеки Цельса, римских домов с фресками и театра на 25 000 зрителей.',
+       ar:'أفضل مدن العصر الكلاسيكي حفظًا في شرق المتوسط. امشِ في شوارع رخامية تمرّ بمكتبة سيلسوس ذات الطابقين، وبيوت رومانية مدرّجة ما زالت جدارياتها سليمة، ومسرح ضخم اتّسع يومًا لخمسة وعشرين ألف متفرّج.'},
+ loc:{en:'Selçuk, near İzmir',de:'Selçuk, bei İzmir',ru:'Сельчук, близ Измира',ar:'سلجوق، قرب إزمير'},
+ best:{en:'Mar–May & Sep–Nov; first hour after opening',de:'Mär–Mai & Sep–Nov; erste Stunde nach Öffnung',ru:'Март–май и сент–ноябрь; первый час после открытия',ar:'مارس–مايو وسبتمبر–نوفمبر؛ الساعة الأولى بعد الافتتاح'},
+ tip:{en:'Hire a guide or audio guide — the stones come alive. Don’t skip the Terrace Houses (separate ticket).',
+      de:'Nehmen Sie einen Guide oder Audioguide — dann leben die Steine. Die Hanghäuser (Extraticket) nicht auslassen.',
+      ru:'Возьмите гида или аудиогид — камни оживают. Не пропустите «Дома на террасах» (отдельный билет).',
+      ar:'خذ مرشدًا أو دليلًا صوتيًا — عندها تنطق الحجارة. ولا تفوّت «البيوت المدرّجة» (تذكرة منفصلة).'}},
+
+{id:'oludeniz', img:'assets/oludeniz.jpg', region:'med', unesco:false,
+ name:{en:'Ölüdeniz & Fethiye',de:'Ölüdeniz & Fethiye',ru:'Олюдениз и Фетхие',ar:'أولودنيز وفتحية'},
+ desc:{en:'A still, turquoise lagoon curling around a white spit of sand beneath pine-covered mountains — Türkiye’s most photographed beach. Tandem paragliders launch from 1,900 m Babadağ and spiral down over the bay; the Lycian Way starts nearby.',
+       de:'Eine stille, türkisfarbene Lagune um eine weiße Sandzunge unter Pinienbergen — der meistfotografierte Strand der Türkei. Tandem-Gleitschirme starten vom 1.900 m hohen Babadağ; der Lykische Weg beginnt gleich nebenan.',
+       ru:'Тихая бирюзовая лагуна вокруг белой песчаной косы под сосновыми горами — самый фотографируемый пляж Турции. Парапланы стартуют с горы Бабадаг (1 900 м) и кружат над бухтой; рядом начинается Ликийская тропа.',
+       ar:'بحيرة شاطئية فيروزية ساكنة تلتفّ حول لسان رملي أبيض تحت جبال يكسوها الصنوبر — أكثر شواطئ تركيا تصويرًا. تنطلق المظلات المزدوجة من قمة باباداغ على ارتفاع 1900 متر لتحوم فوق الخليج؛ ومن هنا يبدأ «درب ليكيا».'},
+ loc:{en:'Fethiye, Turquoise Coast',de:'Fethiye, Türkisküste',ru:'Фетхие, Бирюзовое побережье',ar:'فتحية، الساحل الفيروزي'},
+ best:{en:'May–Oct; June & September are ideal',de:'Mai–Okt; ideal im Juni & September',ru:'Май–октябрь; идеально в июне и сентябре',ar:'مايو–أكتوبر؛ يونيو وسبتمبر مثاليان'},
+ tip:{en:'Book paragliding for morning slots (calmer air) and take a boat day-trip to Butterfly Valley.',
+      de:'Gleitschirmflug morgens buchen (ruhigere Luft) und einen Bootsausflug ins Schmetterlingstal machen.',
+      ru:'Полёт бронируйте на утро (воздух спокойнее) и съездите на лодке в Долину бабочек.',
+      ar:'احجز الطيران المظلّي في الفترة الصباحية (الهواء أهدأ) واقضِ يومًا بالقارب في «وادي الفراشات».'}},
+
+{id:'antalya', img:'assets/antalya.jpg', region:'med', unesco:false,
+ name:{en:'Antalya',de:'Antalya',ru:'Анталья',ar:'أنطاليا'},
+ desc:{en:'The capital of the Turkish Riviera: an Ottoman old town (Kaleiçi) wrapped around a Roman harbour, waterfalls that plunge straight into the sea, and long beaches backed by the Taurus mountains. Perge, Aspendos and Side are an easy drive away.',
+       de:'Die Hauptstadt der Türkischen Riviera: die osmanische Altstadt Kaleiçi um einen römischen Hafen, Wasserfälle, die direkt ins Meer stürzen, lange Strände vor dem Taurusgebirge. Perge, Aspendos und Side liegen ganz in der Nähe.',
+       ru:'Столица Турецкой Ривьеры: османский старый город Калеичи вокруг римской гавани, водопады, падающие прямо в море, и длинные пляжи на фоне Таврских гор. Перге, Аспендос и Сиде — совсем рядом.',
+       ar:'عاصمة الريفييرا التركية: بلدة عثمانية قديمة (كالإيتشي) تحتضن ميناءً رومانيًا، وشلالات تهوي مباشرة في البحر، وشواطئ طويلة تسندها جبال طوروس. وپرغي وأسبندوس وسيده على مسافة قيادة قصيرة.'},
+ loc:{en:'Mediterranean coast',de:'Mittelmeerküste',ru:'Средиземноморское побережье',ar:'الساحل المتوسطي'},
+ best:{en:'Apr–Jun & Sep–Nov; swimming into November',de:'Apr–Jun & Sep–Nov; Baden bis in den November',ru:'Апр–июнь и сент–ноябрь; купаться можно до ноября',ar:'أبريل–يونيو وسبتمبر–نوفمبر؛ السباحة ممكنة حتى نوفمبر'},
+ tip:{en:'See the Lower Düden waterfall from a boat, and catch a summer concert in the Roman theatre of Aspendos.',
+      de:'Den Unteren Düden-Wasserfall vom Boot aus ansehen und im Sommer ein Konzert im römischen Theater von Aspendos erleben.',
+      ru:'Посмотрите на водопад Нижний Дюден с моря и попадите на летний концерт в римском театре Аспендоса.',
+      ar:'شاهد شلال دودن السفلي من قارب، واحضر حفلًا صيفيًا في مسرح أسبندوس الروماني.'}},
+
+{id:'bodrum', img:'assets/bodrum.jpg', region:'aegean', unesco:false,
+ name:{en:'Bodrum',de:'Bodrum',ru:'Бодрум',ar:'بودروم'},
+ desc:{en:'Whitewashed houses and bougainvillea spill down to a bay guarded by the Castle of St. Peter, home to a world-class Museum of Underwater Archaeology. Ancient Halicarnassus’ Mausoleum — one of the Seven Wonders — once stood here.',
+       de:'Weißgetünchte Häuser und Bougainvillea ziehen sich hinab zur Bucht mit der Burg St. Peter, die ein Weltklasse-Museum für Unterwasserarchäologie beherbergt. Hier stand einst das Mausoleum von Halikarnassos, eines der Sieben Weltwunder.',
+       ru:'Белёные дома в бугенвиллеях спускаются к бухте, которую охраняет замок Святого Петра с всемирно известным Музеем подводной археологии. Когда-то здесь стоял Галикарнасский мавзолей — одно из семи чудес света.',
+       ar:'بيوت بيضاء وأزهار الجهنمية تنحدر إلى خليج تحرسه قلعة القديس بطرس، التي تضمّ متحفًا عالميًا لآثار ما تحت الماء. وهنا قام يومًا ضريح موسولوس في هاليكارناسوس — إحدى عجائب الدنيا السبع.'},
+ loc:{en:'Bodrum Peninsula, Aegean',de:'Halbinsel Bodrum, Ägäis',ru:'Полуостров Бодрум, Эгейское море',ar:'شبه جزيرة بودروم، بحر إيجة'},
+ best:{en:'May–Oct; liveliest in high summer',de:'Mai–Okt; im Hochsommer am lebhaftesten',ru:'Май–октябрь; самый оживлённый — в разгар лета',ar:'مايو–أكتوبر؛ أكثر حيوية في ذروة الصيف'},
+ tip:{en:'Charter a traditional gulet for a "Blue Cruise" along the coast — even a one-day trip is worth it.',
+      de:'Chartern Sie eine traditionelle Gulet für eine „Blaue Reise" entlang der Küste — schon ein Tagestörn lohnt sich.',
+      ru:'Возьмите деревянную гулету в «Голубой круиз» вдоль побережья — стоит даже однодневная прогулка.',
+      ar:'استأجر «غوليت» خشبية تقليدية في «رحلة زرقاء» على الساحل — حتى رحلة يوم واحد تستحقّ.'}},
+
+{id:'side', img:'assets/side.jpg', region:'med', unesco:false,
+ name:{en:'Side & Aspendos',de:'Side & Aspendos',ru:'Сиде и Аспендос',ar:'سيده وأسبندوس'},
+ desc:{en:'A Greco-Roman port town on a small peninsula, where the marble columns of the Temple of Apollo frame the sunset over the sea. Nearby Aspendos preserves the best-kept Roman theatre in the world — still hosting performances.',
+       de:'Eine griechisch-römische Hafenstadt auf einer kleinen Halbinsel — die Marmorsäulen des Apollon-Tempels rahmen den Sonnenuntergang über dem Meer. Im nahen Aspendos steht das besterhaltene römische Theater der Welt, noch heute Bühne für Aufführungen.',
+       ru:'Греко-римский портовый городок на маленьком полуострове: мраморные колонны храма Аполлона обрамляют закат над морем. Рядом Аспендос — лучше всех в мире сохранившийся римский театр, где до сих пор идут представления.',
+       ar:'بلدة مرفئية إغريقية-رومانية على شبه جزيرة صغيرة، حيث تؤطّر أعمدة معبد أبولّو الرخامية غروب الشمس فوق البحر. وفي أسبندوس القريبة يقف أفضل مسرح روماني محفوظ في العالم — وما زالت تُقام فيه العروض.'},
+ loc:{en:'Manavgat, east of Antalya',de:'Manavgat, östlich von Antalya',ru:'Манавгат, к востоку от Антальи',ar:'مناوغات، شرق أنطاليا'},
+ best:{en:'Apr–Jun & Sep–Nov; sunset at the temple',de:'Apr–Jun & Sep–Nov; Sonnenuntergang am Tempel',ru:'Апр–июнь и сент–ноябрь; закат у храма',ar:'أبريل–يونيو وسبتمبر–نوفمبر؛ الغروب عند المعبد'},
+ tip:{en:'The ruins are woven through the modern village — stroll the colonnaded street down to the old harbour.',
+      de:'Die Ruinen durchziehen das heutige Dorf — schlendern Sie die Säulenstraße hinunter zum alten Hafen.',
+      ru:'Руины вплетены в современный посёлок — пройдитесь по улице с колоннадой к старой гавани.',
+      ar:'الأطلال متداخلة مع القرية الحديثة — تمشَّ في الشارع المعمّد نزولًا إلى الميناء القديم.'}},
+
+{id:'konya', img:'assets/konya.jpg', region:'central', unesco:false,
+ name:{en:'Konya & the Mevlâna',de:'Konya & das Mevlâna',ru:'Конья и Мевляна',ar:'قونية ومولانا'},
+ desc:{en:'The spiritual heart of Türkiye, where the 13th-century Sufi poet Rumi taught and is buried beneath a turquoise-tiled dome. His mausoleum-museum and the mesmerising sema ceremony of the whirling dervishes draw pilgrims from every faith.',
+       de:'Das spirituelle Herz der Türkei: Hier lehrte der Sufi-Dichter Rumi im 13. Jahrhundert und ruht unter einer türkisgekachelten Kuppel. Sein Mausoleum-Museum und die hypnotische Sema-Zeremonie der tanzenden Derwische ziehen Pilger aller Glaubensrichtungen an.',
+       ru:'Духовное сердце Турции: здесь в XIII веке учил суфийский поэт Руми, погребённый под куполом из бирюзовых изразцов. Его мавзолей-музей и завораживающая церемония сема кружащихся дервишей притягивают паломников всех вер.',
+       ar:'القلب الروحي لتركيا، حيث علّم الشاعر الصوفي جلال الدين الرومي في القرن الثالث عشر ودُفن تحت قبة مكسوّة بالقيشاني الفيروزي. ضريحه-المتحف وحضرة «السماع» الآسرة للدراويش الدوّارين تجتذب زوّارًا من كل الأديان.'},
+ loc:{en:'Konya, Central Anatolia',de:'Konya, Zentralanatolien',ru:'Конья, Центральная Анатолия',ar:'قونية، وسط الأناضول'},
+ best:{en:'Year-round; Rumi festival in December',de:'Ganzjährig; Rumi-Festival im Dezember',ru:'Круглый год; фестиваль Руми в декабре',ar:'طوال العام؛ مهرجان مولانا في ديسمبر'},
+ tip:{en:'See an authentic sema ceremony (Saturdays at the Mevlâna Cultural Centre) and try etli ekmek, Konya’s metre-long flatbread.',
+      de:'Eine authentische Sema-Zeremonie erleben (samstags im Mevlâna-Kulturzentrum) und Etli Ekmek probieren, Konyas meterlanges Fladenbrot.',
+      ru:'Посмотрите подлинную сему (по субботам в культурном центре Мевляны) и попробуйте этли экмек — метровую лепёшку по-коньински.',
+      ar:'احضر حضرة سماع أصيلة (السبت في مركز مولانا الثقافي) وجرّب «إتلي إكمك»، خبز قونية المسطّح الذي يبلغ طوله مترًا.'}},
+
+{id:'gobekli', img:'assets/gobekli.jpg', region:'southeast', unesco:true,
+ name:{en:'Göbekli Tepe',de:'Göbekli Tepe',ru:'Гёбекли-Тепе',ar:'غوبكلي تبه'},
+ desc:{en:'The oldest known monumental temple on Earth, raised by hunter-gatherers around 9600 BC — some 6,000 years before Stonehenge. Rings of T-shaped megaliths carved with foxes, vultures and scorpions are rewriting the story of civilisation.',
+       de:'Der älteste bekannte Monumentaltempel der Welt, um 9600 v. Chr. von Jägern und Sammlern errichtet — rund 6.000 Jahre vor Stonehenge. Ringe T-förmiger Megalithen mit Füchsen, Geiern und Skorpionen schreiben die Geschichte der Zivilisation neu.',
+       ru:'Древнейший известный монументальный храм на Земле, возведённый охотниками-собирателями около 9600 г. до н. э. — на 6 000 лет раньше Стоунхенджа. Кольца Т-образных мегалитов с лисами, грифами и скорпионами переписывают историю цивилизации.',
+       ar:'أقدم معبد ضخم معروف على الأرض، أقامه صيّادون وجامعو ثمار نحو 9600 ق.م — أي قبل ستّة آلاف عام من ستونهنج. حلقات من الأنصاب المغليثية على شكل حرف T منقوشة بثعالب ونسور وعقارب تعيد كتابة قصة الحضارة.'},
+ loc:{en:'Near Şanlıurfa, Southeast',de:'Bei Şanlıurfa, Südosten',ru:'Близ Шанлыурфы, юго-восток',ar:'قرب شانلي أورفا، الجنوب الشرقي'},
+ best:{en:'Mar–May & Oct–Nov; summers are scorching',de:'Mär–Mai & Okt–Nov; Sommer sind glühend heiß',ru:'Март–май и окт–ноябрь; летом сильная жара',ar:'مارس–مايو وأكتوبر–نوفمبر؛ الصيف لاهب'},
+ tip:{en:'Pair it with Şanlıurfa’s superb Archaeology Museum and the carp pools of Balıklıgöl in the old town.',
+      de:'Kombinieren Sie den Besuch mit dem großartigen Archäologiemuseum von Şanlıurfa und den Karpfenteichen von Balıklıgöl.',
+      ru:'Совместите с отличным археологическим музеем Шанлыурфы и прудами с карпами Балыклыгёль в старом городе.',
+      ar:'اجمعه مع متحف شانلي أورفا الأثري الرائع وبِرَك أسماك «بالقلي غول» في المدينة القديمة.'}},
+
+{id:'nemrut', img:'assets/nemrut.jpg', region:'southeast', unesco:true,
+ name:{en:'Mount Nemrut',de:'Berg Nemrut',ru:'Гора Немрут',ar:'جبل نمرود'},
+ desc:{en:'On a 2,134 m summit, a forgotten king of Commagene built his tomb-sanctuary guarded by colossal stone heads of gods and eagles. At sunrise and sunset the toppled statues glow orange above a sea of mountains — pure otherworldliness.',
+       de:'Auf einem 2.134 m hohen Gipfel ließ ein vergessener König von Kommagene sein Grabheiligtum errichten, bewacht von kolossalen Steinköpfen. Bei Sonnenauf- und -untergang glühen die Statuen orange über einem Meer aus Bergen — wie von einer anderen Welt.',
+       ru:'На вершине высотой 2 134 м забытый царь Коммагены построил гробницу-святилище, охраняемую колоссальными каменными головами богов и орлов. На рассвете и закате статуи горят оранжевым над морем гор — неземное зрелище.',
+       ar:'على قمة ترتفع 2134 مترًا، بنى ملك منسيّ من كوماجيني مقبرته-مقامه تحرسها رؤوس حجرية هائلة لآلهة ونسور. عند الشروق والغروب تتوهّج التماثيل المتساقطة بلون برتقالي فوق بحر من الجبال — مشهد لا ينتمي إلى هذا العالم.'},
+ loc:{en:'Adıyaman, Eastern Taurus',de:'Adıyaman, Osttaurus',ru:'Адыяман, Восточный Тавр',ar:'أديامان، طوروس الشرقية'},
+ best:{en:'May–Oct (road closed by snow in winter)',de:'Mai–Okt (Straße im Winter gesperrt)',ru:'Май–октябрь (зимой дорога закрыта снегом)',ar:'مايو–أكتوبر (الطريق مغلق بالثلج شتاءً)'},
+ tip:{en:'Go for sunrise, bring warm layers even in August — the summit wind is icy. Base yourself in Kahta or Karadut.',
+      de:'Zum Sonnenaufgang hinauf, auch im August warme Kleidung mitnehmen — der Gipfelwind ist eisig. Basis: Kahta oder Karadut.',
+      ru:'Поднимайтесь к рассвету и возьмите тёплые вещи даже в августе — ветер на вершине ледяной. База — Кяхта или Карадут.',
+      ar:'اصعد لمشاهدة الشروق واحمل ملابس دافئة حتى في أغسطس — ريح القمة قارسة. واتّخذ كهتا أو قره دوت قاعدة لك.'}},
+
+{id:'sumela', img:'assets/sumela.jpg', region:'north', unesco:false,
+ name:{en:'Sumela Monastery',de:'Kloster Sumela',ru:'Монастырь Сумела',ar:'دير سوميلا'},
+ desc:{en:'A Greek Orthodox monastery founded in the 4th century, clinging impossibly to a sheer cliff 300 metres above a misty forest valley. Inside, restored chapels are covered in vivid frescoes; outside, the Black Sea’s greenest scenery.',
+       de:'Ein im 4. Jahrhundert gegründetes griechisch-orthodoxes Kloster, das sich in eine senkrechte Felswand schmiegt, 300 Meter über einem nebligen Waldtal. Innen leuchten restaurierte Fresken, draußen die grünste Landschaft der Schwarzmeerregion.',
+       ru:'Греческий православный монастырь IV века, невероятным образом прилепившийся к отвесной скале в 300 метрах над туманной лесной долиной. Внутри — яркие фрески, вокруг — самые зелёные пейзажи Черноморья.',
+       ar:'دير أرثوذكسي يوناني أُسّس في القرن الرابع، يتشبّث على نحو يكاد يستحيل بجرف عمودي يعلو 300 متر فوق وادٍ حرجيّ يغمره الضباب. في الداخل كنائس مرمّمة تغطّيها جداريات زاهية، وفي الخارج أكثر مناظر البحر الأسود اخضرارًا.'},
+ loc:{en:'Altındere Valley, near Trabzon',de:'Altındere-Tal, bei Trabzon',ru:'Долина Алтындере, близ Трабзона',ar:'وادي ألتنديره، قرب طرابزون'},
+ best:{en:'May–Oct; often shrouded in atmospheric mist',de:'Mai–Okt; oft in stimmungsvollen Nebel gehüllt',ru:'Май–октябрь; часто окутан атмосферным туманом',ar:'مايو–أكتوبر؛ كثيرًا ما يلفّه ضباب ساحر'},
+ tip:{en:'Combine with the alpine lake of Uzungöl and a çay (tea) stop — this region grows all of Türkiye’s tea.',
+      de:'Mit dem Bergsee Uzungöl und einer Teepause kombinieren — hier wächst der gesamte Tee der Türkei.',
+      ru:'Совместите с горным озером Узунгёль и чайной паузой — весь турецкий чай выращивают именно здесь.',
+      ar:'اجمعه مع بحيرة أوزون غول الجبلية ووقفة شاي — كل شاي تركيا يُزرع في هذه المنطقة.'}},
+
+{id:'ani', img:'assets/ani.jpg', region:'east', unesco:true,
+ name:{en:'Ani',de:'Ani',ru:'Ани',ar:'آني'},
+ desc:{en:'The haunting ruins of a medieval Armenian capital — the "City of 1,001 Churches" — scattered across a grassy steppe on the very edge of Türkiye. A thousand years ago it rivalled Constantinople; today you may have it almost to yourself.',
+       de:'Die ergreifenden Ruinen einer mittelalterlichen armenischen Hauptstadt — die „Stadt der 1001 Kirchen" — verstreut über eine Steppenlandschaft am äußersten Rand der Türkei. Vor tausend Jahren Rivale Konstantinopels, heute fast menschenleer.',
+       ru:'Завораживающие руины средневековой армянской столицы — «города 1001 церкви» — разбросаны по травянистой степи на самом краю Турции. Тысячу лет назад Ани соперничал с Константинополем; сегодня вы будете здесь почти одни.',
+       ar:'أطلال آسرة لعاصمة أرمنية من العصور الوسطى — «مدينة الألف كنيسة وكنيسة» — تتناثر في سهب عشبيّ على أقصى حدود تركيا. قبل ألف عام كانت تنافس القسطنطينية؛ واليوم قد تجدها لك وحدك تقريبًا.'},
+ loc:{en:'45 km from Kars, Northeast',de:'45 km von Kars, Nordosten',ru:'45 км от Карса, северо-восток',ar:'45 كم من قارص، الشمال الشرقي'},
+ best:{en:'May–Sep; winter is stark but beautiful',de:'Mai–Sep; der Winter ist karg, aber schön',ru:'Май–сентябрь; зимой сурово, но красиво',ar:'مايو–سبتمبر؛ الشتاء قاسٍ لكنه جميل'},
+ tip:{en:'Allow at least half a day and wear good shoes — the site is vast. Kars is famous for honey and gravyer cheese.',
+      de:'Mindestens einen halben Tag einplanen und gutes Schuhwerk tragen — das Gelände ist riesig. Kars ist für Honig und Gravyer-Käse berühmt.',
+      ru:'Закладывайте не меньше полудня и наденьте удобную обувь — территория огромна. Карс славится мёдом и сыром гравьер.',
+      ar:'خصّص نصف يوم على الأقل والبس حذاءً جيدًا — الموقع شاسع. وقارص مشهورة بالعسل وجبن الغرويير.'}},
+
+{id:'van', img:'assets/van.jpg', region:'east', unesco:false,
+ name:{en:'Lake Van & Akdamar',de:'Vansee & Akdamar',ru:'Озеро Ван и Ахтамар',ar:'بحيرة وان وأكدامار'},
+ desc:{en:'Türkiye’s largest lake — a vast, soda-blue inland sea ringed by volcanoes. A short boat ride brings you to Akdamar Island and its 10th-century Armenian Church of the Holy Cross, carved with vivid biblical reliefs.',
+       de:'Der größte See der Türkei — ein weites, sodablaues Binnenmeer, umringt von Vulkanen. Eine kurze Bootsfahrt führt zur Insel Akdamar mit ihrer armenischen Heilig-Kreuz-Kirche aus dem 10. Jahrhundert voller lebendiger biblischer Reliefs.',
+       ru:'Крупнейшее озеро Турции — огромное содово-синее внутреннее море в кольце вулканов. Короткая прогулка на катере приводит на остров Ахтамар к армянской церкви Святого Креста X века с яркими библейскими рельефами.',
+       ar:'أكبر بحيرات تركيا — بحر داخلي شاسع بلون الصودا الأزرق تطوّقه البراكين. رحلة قارب قصيرة تأخذك إلى جزيرة أكدامار وكنيسة الصليب المقدّس الأرمنية من القرن العاشر، المنقوشة بنقوش توراتية نابضة.'},
+ loc:{en:'Van, far East',de:'Van, äußerster Osten',ru:'Ван, крайний восток страны',ar:'وان، أقصى الشرق'},
+ best:{en:'May–Sep; almond blossom in April',de:'Mai–Sep; Mandelblüte im April',ru:'Май–сентябрь; в апреле цветёт миндаль',ar:'مايو–سبتمبر؛ أزهار اللوز في أبريل'},
+ tip:{en:'Start the day with a legendary Van breakfast — dozens of little plates of cheeses, honey and kaymak.',
+      de:'Beginnen Sie den Tag mit einem legendären Van-Frühstück — Dutzende Tellerchen mit Käse, Honig und Kaymak.',
+      ru:'Начните день с легендарного ванского завтрака — десятки тарелочек с сырами, мёдом и каймаком.',
+      ar:'ابدأ يومك بفطور وان الأسطوري — عشرات الأطباق الصغيرة من الأجبان والعسل والقيماق.'}},
+
+{id:'mardin', img:'assets/mardin.jpg', region:'southeast', unesco:false,
+ name:{en:'Mardin',de:'Mardin',ru:'Мардин',ar:'ماردين'},
+ desc:{en:'Honey-coloured stone houses cascade down a hillside above the endless Mesopotamian plain. Minarets, ancient Syriac monasteries, silver filigree workshops and courtyard cafés make this Türkiye’s most atmospheric southeastern town.',
+       de:'Honigfarbene Steinhäuser ziehen sich einen Hang hinab, über der endlosen mesopotamischen Ebene. Minarette, uralte syrisch-orthodoxe Klöster, Silberfiligran-Werkstätten und Hofcafés machen Mardin zur stimmungsvollsten Stadt des Südostens.',
+       ru:'Медовые каменные дома спускаются по склону над бескрайней Месопотамской равниной. Минареты, древние сирийские монастыри, мастерские филиграни и дворики-кафе делают Мардин самым атмосферным городом юго-востока.',
+       ar:'بيوت حجرية بلون العسل تتدرّج على منحدر يطلّ على سهل بلاد الرافدين اللامتناهي. مآذن، وأديرة سريانية عتيقة، وورش الفضة المشغولة، ومقاهٍ في الأفنية — كل ذلك يجعلها أكثر مدن الجنوب الشرقي أَسْرًا للنفس.'},
+ loc:{en:'Southeastern Anatolia',de:'Südostanatolien',ru:'Юго-Восточная Анатолия',ar:'جنوب شرق الأناضول'},
+ best:{en:'Mar–May & Sep–Nov',de:'Mär–Mai & Sep–Nov',ru:'Март–май и сент–ноябрь',ar:'مارس–مايو وسبتمبر–نوفمبر'},
+ tip:{en:'Visit Deyrulzafaran (Saffron) Monastery at golden hour and stay in a restored stone mansion hotel.',
+      de:'Besuchen Sie das Safran-Kloster Deyrulzafaran zur goldenen Stunde und übernachten Sie in einem restaurierten Steinpalais.',
+      ru:'Съездите в монастырь Дейрулзафаран («Шафрановый») на закате и остановитесь в отеле-особняке из камня.',
+      ar:'زُر «دير الزعفران» في الساعة الذهبية، وأقم في قصر حجري مرمّم.'}},
+
+{id:'safranbolu', img:'assets/safranbolu.jpg', region:'north', unesco:true,
+ name:{en:'Safranbolu',de:'Safranbolu',ru:'Сафранболу',ar:'صفرانبولو'},
+ desc:{en:'A perfectly preserved Ottoman merchant town of timber-framed mansions, cobbled lanes, a 17th-century caravanserai and artisan bazaars — named after the saffron that still grows in the surrounding fields.',
+       de:'Eine perfekt erhaltene osmanische Handelsstadt mit Fachwerkvillen, Kopfsteingassen, einer Karawanserei aus dem 17. Jh. und Handwerksbasaren — benannt nach dem Safran, der hier noch immer auf den Feldern wächst.',
+       ru:'Идеально сохранившийся османский купеческий город: фахверковые особняки, мощёные улочки, караван-сарай XVII века и ремесленные базары. Назван в честь шафрана, который до сих пор растёт в окрестных полях.',
+       ar:'بلدة تجّار عثمانية محفوظة بتمامها: قصور بهياكل خشبية، وأزقّة مرصوفة بالحصى، وخان قوافل من القرن السابع عشر، وأسواق حِرَفية — سُمّيت على اسم الزعفران الذي ما زال ينمو في حقولها المحيطة.'},
+ loc:{en:'Karabük, ~2h from Ankara',de:'Karabük, ca. 2 Std. von Ankara',ru:'Карабюк, ~2 часа от Анкары',ar:'قره بوك، نحو ساعتين من أنقرة'},
+ best:{en:'Apr–Oct; lovely under winter snow too',de:'Apr–Okt; auch unter Winterschnee reizvoll',ru:'Апр–октябрь; под зимним снегом тоже прекрасен',ar:'أبريل–أكتوبر؛ وساحرة أيضًا تحت ثلج الشتاء'},
+ tip:{en:'Sleep in a konak (Ottoman mansion), try saffron lokum, and climb to Hıdırlık hill for the rooftop view.',
+      de:'In einem Konak (osmanischen Herrenhaus) übernachten, Safran-Lokum probieren und für den Dächerblick auf den Hıdırlık-Hügel steigen.',
+      ru:'Переночуйте в конаке (османском особняке), попробуйте шафрановый лукум и поднимитесь на холм Хыдырлык ради вида на крыши.',
+      ar:'بِت في «كوناك» (قصر عثماني)، وجرّب راحة الحلقوم بالزعفران، واصعد تلّة حِدِرلِك لمنظر السطوح.'}}
+];
+
+/* ================= UI STRINGS ================= */
+const UI = {
+ brand:{en:'Discover Türkiye',de:'Türkei entdecken',ru:'Открой Турцию',ar:'اكتشف تركيا'},
+ kicker:{en:'Where two continents meet',de:'Wo zwei Kontinente sich treffen',ru:'Там, где встречаются два континента',ar:'حيث تلتقي قارتان'},
+ heroTitle:{en:'Türkiye, land of ten thousand years',de:'Türkiye — Land der zehntausend Jahre',ru:'Турция — земля десяти тысячелетий',ar:'تركيا، أرض عشرة آلاف عام'},
+ heroLead:{en:'From the domes of Istanbul to the fairy chimneys of Cappadocia and the turquoise coves of the Mediterranean — a visual guide to the country’s most unforgettable places.',
+           de:'Von den Kuppeln Istanbuls über die Feenkamine Kappadokiens bis zu den türkisfarbenen Buchten des Mittelmeers — ein visueller Guide zu den unvergesslichsten Orten des Landes.',
+           ru:'От куполов Стамбула до «каминов фей» Каппадокии и бирюзовых бухт Средиземного моря — визуальный путеводитель по самым незабываемым местам страны.',
+           ar:'من قباب إسطنبول إلى مداخن الجنّ في كابادوكيا وخلجان المتوسط الفيروزية — دليل مصوّر إلى أكثر أماكن البلاد رسوخًا في الذاكرة.'},
+ ctaExplore:{en:'Explore destinations',de:'Ziele entdecken',ru:'Смотреть места',ar:'استكشف الوجهات'},
+ ctaTips:{en:'Travel tips',de:'Reisetipps',ru:'Советы',ar:'نصائح السفر'},
+ statUnesco:{en:'UNESCO World Heritage Sites',de:'UNESCO-Welterbestätten',ru:'объекта Всемирного наследия ЮНЕСКО',ar:'موقعًا على قائمة التراث العالمي لليونسكو'},
+ statCoastNum:{en:'8,300+ km',de:'8.300+ km',ru:'8 300+ км',ar:'+8300 كم'},
+ statCoast:{en:'of coastline on four seas',de:'Küste an vier Meeren',ru:'побережья четырёх морей',ar:'من السواحل على أربعة بحار'},
+ statCont:{en:'continents, one country',de:'Kontinente, ein Land',ru:'континента, одна страна',ar:'قارتان في بلد واحد'},
+ destEyebrow:{en:'Region by region',de:'Region für Region',ru:'Регион за регионом',ar:'منطقة تلو الأخرى'},
+ destTitle:{en:'What to see, region by region',de:'Was Sie sehen sollten — Region für Region',ru:'Что смотреть — регион за регионом',ar:'ما الذي تراه، منطقة تلو الأخرى'},
+ destIntro:{en:'Seven regions, 19 hand-picked places — imperial cities, ancient wonders, beach paradises and remote marvels few travellers ever reach. Jump to a region:',
+            de:'Sieben Regionen, 19 handverlesene Orte — Kaiserstädte, antike Wunder, Strandparadiese und abgelegene Schätze, die kaum ein Reisender erreicht. Zu einer Region springen:',
+            ru:'Семь регионов, 19 отобранных мест — имперские города, античные чудеса, пляжный рай и дальние сокровища, до которых добираются немногие. Перейти к региону:',
+            ar:'سبع مناطق و19 مكانًا منتقى بعناية — مدن إمبراطورية، وعجائب قديمة، وجنّات شاطئية، وكنوز نائية قلّما يبلغها المسافرون. انتقل إلى منطقة:'},
+ tipsEyebrow:{en:'Good to know',de:'Gut zu wissen',ru:'Полезно знать',ar:'معلومات مفيدة'},
+ tipsTitle:{en:'Practical tips for your trip',de:'Praktische Tipps für Ihre Reise',ru:'Практические советы для поездки',ar:'نصائح عملية لرحلتك'},
+ tipsIntro:{en:'A few things that make travelling in Türkiye easier — from visas and money to mosque etiquette.',
+            de:'Ein paar Dinge, die das Reisen in der Türkei leichter machen — von Visum und Geld bis zur Moschee-Etikette.',
+            ru:'Несколько вещей, которые сделают путешествие по Турции проще — от виз и денег до этикета в мечетях.',
+            ar:'أمور قليلة تجعل السفر في تركيا أسهل — من التأشيرات والنقود إلى آداب زيارة المساجد.'},
+ fLoc:{en:'Where',de:'Wo',ru:'Где',ar:'أين'},
+ fBest:{en:'Best time',de:'Beste Zeit',ru:'Лучшее время',ar:'أفضل وقت'},
+ fTip:{en:'Tip',de:'Tipp',ru:'Совет',ar:'نصيحة'},
+ footNote:{en:'Made with love for travellers · Information is indicative — always check opening hours and tickets locally.',
+           de:'Mit Liebe für Reisende gemacht · Alle Angaben ohne Gewähr — Öffnungszeiten und Tickets bitte vor Ort prüfen.',
+           ru:'Сделано с любовью к путешественникам · Информация ориентировочная — часы работы и билеты уточняйте на месте.',
+           ar:'صُنع بحبٍّ للمسافرين · المعلومات إرشادية — تحقّق دائمًا من أوقات العمل والتذاكر على أرض الواقع.'},
+ footCredit:{en:'Photos: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC licenses)',
+             de:'Fotos: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (CC-Lizenzen)',
+             ru:'Фото: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> (лицензии CC)',
+             ar:'الصور: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">ويكيميديا كومنز</a> (رخص المشاع الإبداعي)'}
+};
+
+const DOCTITLE = {en:'Discover Türkiye',de:'Türkei entdecken',ru:'Открой Турцию',ar:'اكتشف تركيا'};
+
+const TIPS = [
+ {ico:'M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20zM12 2a15 15 0 0 0 0 20',
+  h:{en:'Visas & entry',de:'Visum & Einreise',ru:'Визы и въезд',ar:'التأشيرات والدخول'},
+  p:{en:'Many nationalities enter visa-free or with a quick e-Visa from the official site evisa.gov.tr. Check your passport’s rules before booking.',
+     de:'Viele Nationalitäten reisen visumfrei ein oder mit einem schnellen e-Visum über die offizielle Seite evisa.gov.tr. Prüfen Sie die Regeln für Ihren Pass vor der Buchung.',
+     ru:'Гражданам многих стран (в т. ч. России) виза не нужна; другим доступна быстрая e-Visa на официальном сайте evisa.gov.tr. Проверьте правила для своего паспорта заранее.',
+     ar:'مواطنو دول كثيرة يدخلون دون تأشيرة أو بتأشيرة إلكترونية سريعة من الموقع الرسمي evisa.gov.tr. تحقّق من شروط جواز سفرك قبل الحجز.'}},
+ {ico:'M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6',
+  h:{en:'Money',de:'Geld',ru:'Деньги',ar:'النقود'},
+  p:{en:'The currency is the Turkish lira (₺). Cards are accepted almost everywhere, but keep small cash for bazaars, taxis and tips — and haggling in bazaars is expected.',
+     de:'Die Währung ist die Türkische Lira (₺). Karten werden fast überall akzeptiert; für Basare, Taxis und Trinkgeld etwas Bargeld bereithalten — Handeln gehört auf dem Basar dazu.',
+     ru:'Валюта — турецкая лира (₺). Карты принимают почти везде, но держите наличные для базаров, такси и чаевых. Торговаться на базаре — нормально и даже ожидаемо.',
+     ar:'العملة هي الليرة التركية (₺). البطاقات مقبولة في كل مكان تقريبًا، لكن احتفظ بنقد صغير للأسواق وسيارات الأجرة والبقشيش — والمساومة في البازار أمر متوقّع.'}},
+ {ico:'M4 21V8l8-5 8 5v13M9 21v-6h6v6',
+  h:{en:'Mosque etiquette',de:'Moschee-Etikette',ru:'Этикет в мечетях',ar:'آداب المساجد'},
+  p:{en:'Mosques are free to visit outside prayer times. Shoulders and knees covered, shoes off at the door, headscarves for women (usually provided). Keep voices low.',
+     de:'Moscheen können außerhalb der Gebetszeiten kostenlos besucht werden. Schultern und Knie bedecken, Schuhe ausziehen, Kopftuch für Frauen (meist vorhanden). Leise sprechen.',
+     ru:'Мечети открыты бесплатно вне времени намаза. Плечи и колени закрыты, обувь снимается у входа, женщинам — платок (обычно выдают). Говорите тихо.',
+     ar:'زيارة المساجد مجانية خارج أوقات الصلاة. غطِّ الكتفين والركبتين، واخلع حذاءك عند الباب، وغطاء الرأس للنساء (يُقدَّم عادة عند المدخل). واخفض صوتك.'}},
+ {ico:'M2.5 19.5L21 12 2.5 4.5l3.5 7.5-3.5 7.5zM6 12h15',
+  h:{en:'Getting around',de:'Unterwegs im Land',ru:'Как перемещаться',ar:'التنقّل'},
+  p:{en:'Distances are big: cheap domestic flights (THY, Pegasus, AJet) link all regions, intercity buses are excellent, and high-speed trains connect Istanbul, Ankara and Konya.',
+     de:'Die Distanzen sind groß: günstige Inlandsflüge (THY, Pegasus, AJet) verbinden alle Regionen, Fernbusse sind exzellent, Schnellzüge verkehren zwischen Istanbul, Ankara und Konya.',
+     ru:'Расстояния большие: дешёвые внутренние рейсы (THY, Pegasus, AJet) связывают все регионы, междугородние автобусы отличные, скоростные поезда ходят между Стамбулом, Анкарой и Коньей.',
+     ar:'المسافات كبيرة: رحلات داخلية رخيصة (الخطوط التركية، بيغاسوس، أي‑جت) تربط كل المناطق، وحافلات ما بين المدن ممتازة، وقطارات سريعة تصل إسطنبول وأنقرة وقونية.'}},
+ {ico:'M3 11l9-8 9 8M5 9v11h14V9M9 20v-7h6v7',
+  h:{en:'Museum Pass',de:'Museumspass',ru:'Музейная карта',ar:'بطاقة المتاحف'},
+  p:{en:'The official Museum Pass Türkiye (muze.gov.tr) covers hundreds of state-run sites — Ephesus, Göbekli Tepe, Topkapı and more — and lets you skip ticket queues.',
+     de:'Der offizielle Museum Pass Türkiye (muze.gov.tr) gilt für Hunderte staatliche Stätten — Ephesos, Göbekli Tepe, Topkapı u. v. m. — und erspart die Ticketschlangen.',
+     ru:'Официальная карта Museum Pass Türkiye (muze.gov.tr) действует в сотнях государственных музеев — Эфес, Гёбекли-Тепе, Топкапы и др. — и избавляет от очередей за билетами.',
+     ar:'بطاقة Museum Pass Türkiye الرسمية (muze.gov.tr) تشمل مئات المواقع الحكومية — أفسس وغوبكلي تبه وطوب قابي وغيرها — وتعفيك من طوابير التذاكر.'}},
+ {ico:'M18 8a6 6 0 1 1-12 0M12 14v7M8 21h8M5 8h14',
+  h:{en:'Food & tea culture',de:'Essen & Teekultur',ru:'Еда и чайная культура',ar:'الطعام وثقافة الشاي'},
+  p:{en:'Say yes to çay — tea is the language of hospitality. Try a full Turkish breakfast, street simit, pide, meze by the sea and baklava with pistachio from Gaziantep.',
+     de:'Sagen Sie Ja zum Çay — Tee ist die Sprache der Gastfreundschaft. Probieren Sie ein türkisches Frühstück, Simit, Pide, Meze am Meer und Baklava mit Pistazien aus Gaziantep.',
+     ru:'Не отказывайтесь от чая — это язык гостеприимства. Попробуйте турецкий завтрак, уличный симит, пиде, мезе у моря и фисташковую пахлаву из Газиантепа.',
+     ar:'قل نعم للشاي («تشاي») — فهو لغة الضيافة. جرّب الفطور التركي الكامل، والسميت من الشارع، والبيده، والمزّة على البحر، والبقلاوة بالفستق من غازي عنتاب.'}}
+];
+
+/* ================= RENDER ================= */
+const ICONS = {
+ pin:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>',
+ cal:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 10h17M8 2.8V6.5M16 2.8V6.5"/></svg>',
+ star:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2l2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3.3 9.6l6-.9z"/></svg>'
+};
+
+let lang = 'en';
+const esc = s => { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; };
+
+function renderFilters(){
+  const f = document.getElementById('filters');
+  f.innerHTML = REGION_ORDER.map(k => `<button type="button" data-r="${k}">${esc(REGIONS[k].name[lang])}</button>`).join('');
+  f.querySelectorAll('button').forEach(b => b.onclick = () => {
+    document.getElementById('region-' + b.dataset.r).scrollIntoView({behavior:'smooth', block:'start'});
+  });
+}
+
+const cardHTML = d => `
+  <article class="card">
+    <div class="imgbox">
+      <img src="${d.img}" alt="${esc(d.name[lang])}" loading="lazy" decoding="async" width="1000" height="625">
+      ${d.unesco ? '<span class="unesco">UNESCO</span>' : ''}
+    </div>
+    <div class="card-body">
+      <h3>${esc(d.name[lang])}</h3>
+      <p class="desc">${esc(d.desc[lang])}</p>
+      <div class="facts">
+        <div class="fact">${ICONS.pin}<div><b>${esc(UI.fLoc[lang])}:</b> ${esc(d.loc[lang])}</div></div>
+        <div class="fact">${ICONS.cal}<div><b>${esc(UI.fBest[lang])}:</b> ${esc(d.best[lang])}</div></div>
+        <div class="fact">${ICONS.star}<div><b>${esc(UI.fTip[lang])}:</b> ${esc(d.tip[lang])}</div></div>
+      </div>
+    </div>
+  </article>`;
+
+function renderCards(){
+  document.getElementById('grid').innerHTML = REGION_ORDER.map((k, i) => {
+    const items = D.filter(d => d.region === k);
+    if(!items.length) return '';
+    return `
+    <div class="region-sec" id="region-${k}">
+      <div class="region-head">
+        <span class="region-num">${String(i+1).padStart(2,'0')}</span>
+        <div>
+          <h3>${esc(REGIONS[k].name[lang])}</h3>
+          <p>${esc(REGIONS[k].tag[lang])}</p>
+        </div>
+      </div>
+      <div class="region-grid">${items.map(cardHTML).join('')}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderTips(){
+  document.getElementById('tipgrid').innerHTML = TIPS.map(t => `
+  <div class="tip">
+    <div class="t-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${t.ico}"/></svg></div>
+    <h3>${esc(t.h[lang])}</h3><p>${esc(t.p[lang])}</p>
+  </div>`).join('');
+}
+
+function applyUI(){
+  const root = document.documentElement;
+  root.lang = lang;
+  root.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+  document.querySelectorAll('[data-i18n]').forEach(el => { const k = el.dataset.i18n; if(UI[k]) el.textContent = UI[k][lang]; });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => { const k = el.dataset.i18nHtml; if(UI[k]) el.innerHTML = UI[k][lang]; });
+  document.querySelectorAll('.langs button').forEach(b => {
+    const on = b.dataset.lang === lang;
+    b.classList.toggle('active', on);
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+  document.title = DOCTITLE[lang];
+  renderFilters(); renderCards(); renderTips();
+}
+
+document.querySelectorAll('.langs button').forEach(b => b.onclick = () => { lang = b.dataset.lang; applyUI(); });
+
+/* auto-detect browser language on first load */
+const nav = (navigator.language || 'en').slice(0,2).toLowerCase();
+if (['de','ru','ar'].includes(nav)) lang = nav;
+applyUI();
+</script>
+
+</body>
+</html>
