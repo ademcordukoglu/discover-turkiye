@@ -109,7 +109,7 @@ function renderDetail(id){
   detailEl.innerHTML = `
     <button class="d-back" type="button" id="dback">← ${esc(UI.backAll[lang])}</button>
     <nav class="langs d-langs" aria-label="Language">
-      ${['en','de','ru','ar'].map(l => `<button type="button" data-dlang="${l}" class="${l===lang?'active':''}" lang="${l}">${l==='ar'?'العربية':l.toUpperCase()}</button>`).join('')}
+      ${window.__LANGNAV__.map(o => o.l===lang ? `<span class="lg active" lang="${o.l}">${o.n}</span>` : `<a class="lg" lang="${o.l}" hreflang="${o.l}" href="${o.b}place/${d.id}/">${o.n}</a>`).join('')}
     </nav>
     <div class="d-hero">
       <img src="${d.img}" alt="${esc(d.name[lang])}">
@@ -144,7 +144,6 @@ function renderDetail(id){
   detailEl.scrollTop = 0;
   document.title = d.name[lang] + ' · ' + DOCTITLE[lang];
   document.getElementById('dback').onclick = () => { location.hash = '#destinations'; };
-  detailEl.querySelectorAll('[data-dlang]').forEach(b => b.onclick = () => { lang = b.dataset.dlang; applyUI(); });
   openId = id;
 }
 
